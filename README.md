@@ -4,6 +4,7 @@ Beta Fortress Client is a .NET framework program for installing, updating, reset
 
 ## NuGet packages/third-party code used
 [Squirrel.Windows](https://github.com/squirrel/Squirrel.Windows)
+[LibGit2Sharp](https://github.com/libgit2/LibGit2Sharp) - [the modified version](https://github.com/andersklepaker/libgit2sharp)
 
 ## How to build?
 **Requirements**
