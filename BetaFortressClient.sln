@@ -16,6 +16,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Repository Files", "Git
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{626FD3D6-9403-4B95-9C72-ADB1B01EED57}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibGit2Sharp", "src\Libraries\LibGit2Sharp\LibGit2Sharp.csproj", "{19DEE286-993D-4668-95F9-0869E079B513}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibGit2Sharp.Tests", "src\Libraries\LibGit2Sharp.Tests\LibGit2Sharp.Tests.csproj", "{F579B173-2985-43AF-B7B6-33839C82E760}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{37C79BCD-089E-4435-B6F9-D8356F39399F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativeLibraryLoadTestApp.x64", "src\Libraries\NativeLibraryLoadTestApp\x64\NativeLibraryLoadTestApp.x64.csproj", "{BB73BD94-DD2B-49E6-8A85-1C59A7ACAB49}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativeLibraryLoadTestApp.x86", "src\Libraries\NativeLibraryLoadTestApp\x86\NativeLibraryLoadTestApp.x86.csproj", "{9C8888FA-C7AD-4002-9C74-70B7D563E1EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +42,22 @@ Global
 		{BA4282FB-9145-4560-A364-A477655CB9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA4282FB-9145-4560-A364-A477655CB9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA4282FB-9145-4560-A364-A477655CB9FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DEE286-993D-4668-95F9-0869E079B513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DEE286-993D-4668-95F9-0869E079B513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DEE286-993D-4668-95F9-0869E079B513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DEE286-993D-4668-95F9-0869E079B513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F579B173-2985-43AF-B7B6-33839C82E760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F579B173-2985-43AF-B7B6-33839C82E760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F579B173-2985-43AF-B7B6-33839C82E760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F579B173-2985-43AF-B7B6-33839C82E760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB73BD94-DD2B-49E6-8A85-1C59A7ACAB49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB73BD94-DD2B-49E6-8A85-1C59A7ACAB49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB73BD94-DD2B-49E6-8A85-1C59A7ACAB49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB73BD94-DD2B-49E6-8A85-1C59A7ACAB49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8888FA-C7AD-4002-9C74-70B7D563E1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8888FA-C7AD-4002-9C74-70B7D563E1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8888FA-C7AD-4002-9C74-70B7D563E1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8888FA-C7AD-4002-9C74-70B7D563E1EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +65,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{55D37E8F-5F6B-45E5-8FC9-076489038AA0} = {49D86229-A2C7-412E-94AC-18AE78E0122E}
 		{BA4282FB-9145-4560-A364-A477655CB9FA} = {49D86229-A2C7-412E-94AC-18AE78E0122E}
+		{19DEE286-993D-4668-95F9-0869E079B513} = {626FD3D6-9403-4B95-9C72-ADB1B01EED57}
+		{F579B173-2985-43AF-B7B6-33839C82E760} = {626FD3D6-9403-4B95-9C72-ADB1B01EED57}
+		{BB73BD94-DD2B-49E6-8A85-1C59A7ACAB49} = {37C79BCD-089E-4435-B6F9-D8356F39399F}
+		{9C8888FA-C7AD-4002-9C74-70B7D563E1EA} = {37C79BCD-089E-4435-B6F9-D8356F39399F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A4EA94BE-37A3-406F-A10F-879FBEA456D2}
