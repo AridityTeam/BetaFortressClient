@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFClientUpdater", "src\Main
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Repository Files", "Git Repository Files", "{4ED4B492-628B-4B06-BD78-330A98AF2A2B}"
 	ProjectSection(SolutionItems) = preProject
-		src\Main\BetaFortressClient\Repo files\.gitattributes = src\Main\BetaFortressClient\Repo files\.gitattributes
-		src\Main\BetaFortressClient\Repo files\.gitignore = src\Main\BetaFortressClient\Repo files\.gitignore
-		src\Main\BetaFortressClient\Repo files\README.md = src\Main\BetaFortressClient\Repo files\README.md
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
