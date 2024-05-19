@@ -92,7 +92,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
                         Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
                     }
 
-                    MessageBox.Show("An error has occured while checking for updates!!!\n" +
+                    MessageBox.Show("An error occured while checking for updates!!!\n" +
                         "Please contact the developers!",
                         "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

@@ -1,4 +1,9 @@
-﻿using System;
+﻿//#define HAS_SETUP // startup setup process is still buggy
+//#define RELEASE_BUILD
+//#define BETA_BUILD
+#define CONFIDENTIAL_BUILD
+
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.IO;
@@ -107,6 +112,12 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             {
 
             }
+
+            #if RELEASE_BUILD // place these here for future purposes
+            SquirrelManager.CheckForUpdates();
+            #elif BETA_BUILD
+            SquirrelManager.CheckForUpdates();
+            #endif
 
             if(Directory.Exists(Steam.GetSteamPath))
             {
@@ -258,6 +269,12 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             finally
             {
                 Console.WriteLine("[ BFCLIENT ] Leaving function: Run(string[] args) ");
+
+                #if RELEASE_BUILD // place these here for future purposes
+                SquirrelManager.CheckForUpdates();
+                #elif BETA_BUILD
+                SquirrelManager.CheckForUpdates();
+                #endif
             }
         }
     }
