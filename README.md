@@ -22,5 +22,3 @@ Once the cloning process is done, open the directory of where you've cloned the 
 Once your inside of Visual Studio with the solution opened up, you can now make your changes. To build, press `CTRL + SHIFT + B` or right-click on the solution from the Solution Explorer and then `Build Solution`.
 
 And that concludes the tutorial on how to build Beta Fortress Client. Hope this helps you on setting up your development environment for .NET or build the source code of Beta Fortress Client!
-
-(i am lazy so ill edit this later or whatever day)
