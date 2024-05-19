@@ -11,6 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFClientFileHandler", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFClientUpdater", "src\Main\BFClientUpdateService\BFClientUpdater.csproj", "{4792B1B7-6861-47CF-83B5-6F9CA270FDF5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Repository Files", "Git Repository Files", "{4ED4B492-628B-4B06-BD78-330A98AF2A2B}"
+	ProjectSection(SolutionItems) = preProject
+		src\Main\BetaFortressClient\Repo files\.gitattributes = src\Main\BetaFortressClient\Repo files\.gitattributes
+		src\Main\BetaFortressClient\Repo files\.gitignore = src\Main\BetaFortressClient\Repo files\.gitignore
+		src\Main\BetaFortressClient\Repo files\README.md = src\Main\BetaFortressClient\Repo files\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
