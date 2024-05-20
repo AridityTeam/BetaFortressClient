@@ -13,6 +13,7 @@ using Microsoft.Win32;
 using System.Reflection;
 using System.Security.Principal;
 using System.Runtime.InteropServices;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,6 +29,9 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
         static extern bool AllocConsole();
 
         static string[] commandLineArgs = null;
+
+        static string SteamSetupPath = null;
+        static string SteamSetupExe = null;
 
         public static string[] CommandLineArgs
         {
@@ -110,7 +114,13 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                                                .IsOSPlatform(OSPlatform.Windows);
             if(isWindows)
             {
+                SteamSetupPath = Application.StartupPath + "/temp/" + Path.GetRandomFileName();
+                SteamSetupExe = SteamSetupPath + "/SteamSetup.exe";
 
+                if(!Directory.Exists(SteamSetupPath))
+                {
+                    Directory.CreateDirectory(SteamSetupPath);
+                }
             }
 
             #if RELEASE_BUILD // place these here for future purposes
@@ -127,12 +137,76 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             {
                 Console.WriteLine("[ BFCLIENT ] Could not find Steam! Assuming Steam is not installed.");
                 DialogResult result = MessageBox.Show("To use this client, you must have Steam installed into your computer and we could not find Steam inside of your machine.\n" +
-                    "By clicking on OK, you will be redirected into the Steam download page on your default browser.", 
+                    "By clicking on OK, Beta Fortress Client will try to install the setup program for Steam and run it.", 
                     "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 
                 if(result == DialogResult.OK)
                 {
-                    Process.Start("https://store.steampowered.com/about");
+                    // for some reason you get an "Class not registered" exception here
+                    try
+                    {
+                        //Process.Start("https://store.steampowered.com/about");    
+                        WebClient wc = new WebClient();
+                        wc.DownloadFileCompleted += SteamSetupDownloadCompleted;
+                        wc.DownloadFile("https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe",
+                                SteamSetupExe);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
+                        Console.WriteLine(e);
+                        Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
+
+                        using (StreamWriter writer = new StreamWriter("./bfclient.BetaFortressTeam" + ".exception.log"))
+                        {
+                            OperatingSystem os = Environment.OSVersion;
+                            Version ver = os.Version;
+
+                            if (commandLineArgs.Contains("/console"))
+                            {
+                                writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                                writer.WriteLine("NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now);
+                                writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                                writer.WriteLine("Version: " + os.Version.ToString());
+                                writer.WriteLine("  Major version: " + ver.Major);
+                                writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                                writer.WriteLine("  Minor version: " + ver.Minor);
+                                writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                                writer.WriteLine("  Build: " + ver.Build);
+                                writer.WriteLine("Platform: " + os.Platform.ToString());
+                                writer.WriteLine("SP: " + os.ServicePack.ToString());
+                                writer.WriteLine("Version String: " + os.VersionString.ToString());
+                                writer.WriteLine("==========================================================================================");
+                                writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                                writer.WriteLine(e);
+                                writer.WriteLine("===========================================================================================");
+                                writer.Close();
+                            }
+                            else
+                            {
+                                writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                                writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                                writer.WriteLine("Version: " + os.Version.ToString());
+                                writer.WriteLine("  Major version: " + ver.Major);
+                                writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                                writer.WriteLine("  Minor version: " + ver.Minor);
+                                writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                                writer.WriteLine("  Build: " + ver.Build);
+                                writer.WriteLine("Platform: " + os.Platform.ToString());
+                                writer.WriteLine("SP: " + os.ServicePack.ToString());
+                                writer.WriteLine("Version String: " + os.VersionString.ToString());
+                                writer.WriteLine("==========================================================================================");
+                                writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                                writer.WriteLine(e);
+                                writer.WriteLine("===========================================================================================");
+                                writer.Close();
+                            }
+
+                            Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
+                            Console.WriteLine("[ BFCLIENT ] Closing...");
+                            return;
+                        }
+                    }
                 }
             }
 
@@ -243,6 +317,11 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
         }
 
+        private static void SteamSetupDownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            Process.Start(SteamSetupExe);
+        }
+
         static void Run(string[] args)
         {
             Application.SetCompatibleTextRenderingDefault(false);
@@ -261,9 +340,17 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     Application.Run(new MainForm());
                 }
                 #else
-                Console.WriteLine("[ BFCLIENT ] Loading UpdateForm...");
                 Application.EnableVisualStyles();
-                Application.Run(new MainForm());
+                if (commandLineArgs.Contains("/recovery"))
+                {
+                    Console.WriteLine("[ BFCLIENT ] Loading RecoveryToolForm...");
+                    Application.Run(new RecoveryToolForm());
+                }
+                else
+                {
+                    Console.WriteLine("[ BFCLIENT ] Loading UpdateForm...");
+                    Application.Run(new MainForm());
+                }
                 #endif
             }
             finally
