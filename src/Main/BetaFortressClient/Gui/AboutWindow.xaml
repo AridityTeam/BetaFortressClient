@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetaFortressTeam.BetaFortressClient.Gui"
-        Title="About Beta Fortress Client" Height="264" Width="464">
+        Title="About Beta Fortress Client" Height="253" Width="485" Initialized="Window_Initialized">
     <Grid>
-        <Label Content="Beta Fortress Client" HorizontalAlignment="Left" Margin="129,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblClientName" Content="Beta Fortress Client" HorizontalAlignment="Left" Margin="0,82,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 

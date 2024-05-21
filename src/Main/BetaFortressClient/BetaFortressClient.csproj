@@ -90,6 +90,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Startup\BFClientMain.cs" />
+    <Compile Include="Util\ModManager.cs" />
     <Compile Include="Util\SetupManager.cs" />
     <Compile Include="Util\SquirrelManager.cs" />
     <Compile Include="Util\Steam.cs" />

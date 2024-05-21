@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRecovery = new System.Windows.Forms.Button();
             this.btnUninstall = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
@@ -36,7 +37,8 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.pBar = new System.Windows.Forms.ProgressBar();
             this.btnInstall = new System.Windows.Forms.Button();
-            this.btnRecovery = new System.Windows.Forms.Button();
+            this.gitCloneWorker = new System.ComponentModel.BackgroundWorker();
+            this.gitPullWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +60,16 @@
             this.panel1.Size = new System.Drawing.Size(800, 451);
             this.panel1.TabIndex = 0;
             // 
+            // btnRecovery
+            // 
+            this.btnRecovery.Location = new System.Drawing.Point(12, 160);
+            this.btnRecovery.Name = "btnRecovery";
+            this.btnRecovery.Size = new System.Drawing.Size(122, 23);
+            this.btnRecovery.TabIndex = 7;
+            this.btnRecovery.Text = "Recovery Tool";
+            this.btnRecovery.UseVisualStyleBackColor = true;
+            this.btnRecovery.Click += new System.EventHandler(this.btnRecovery_Click);
+            // 
             // btnUninstall
             // 
             this.btnUninstall.Location = new System.Drawing.Point(12, 106);
@@ -76,6 +88,7 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "About BF Client";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnSettings
             // 
@@ -124,15 +137,17 @@
             this.btnInstall.UseVisualStyleBackColor = true;
             this.btnInstall.Click += new System.EventHandler(this.btnInstall_Click);
             // 
-            // btnRecovery
+            // gitCloneWorker
             // 
-            this.btnRecovery.Location = new System.Drawing.Point(12, 160);
-            this.btnRecovery.Name = "btnRecovery";
-            this.btnRecovery.Size = new System.Drawing.Size(122, 23);
-            this.btnRecovery.TabIndex = 7;
-            this.btnRecovery.Text = "Recovery Tool";
-            this.btnRecovery.UseVisualStyleBackColor = true;
-            this.btnRecovery.Click += new System.EventHandler(this.btnRecovery_Click);
+            this.gitCloneWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.gitCloneWorker_DoWork);
+            this.gitCloneWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.gitCloneWorker_ProgressChanged);
+            this.gitCloneWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.gitCloneWorker_RunWorkerCompleted);
+            // 
+            // gitPullWorker
+            // 
+            this.gitPullWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.gitPullWorker_DoWork);
+            this.gitPullWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.gitPullWorker_ProgressChanged);
+            this.gitPullWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.gitPullWorker_RunWorkerCompleted);
             // 
             // MainForm
             // 
@@ -163,5 +178,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnUninstall;
         private System.Windows.Forms.Button btnRecovery;
+        private System.ComponentModel.BackgroundWorker gitCloneWorker;
+        private System.ComponentModel.BackgroundWorker gitPullWorker;
     }
 }

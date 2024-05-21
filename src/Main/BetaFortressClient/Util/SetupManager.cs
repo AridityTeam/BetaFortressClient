@@ -27,7 +27,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             {
                 return true;
             }
-            if(!Directory.Exists(modPath + "/sounds"))
+            if(!Directory.Exists(modPath + "/sound"))
             {
                 return true;
             }
