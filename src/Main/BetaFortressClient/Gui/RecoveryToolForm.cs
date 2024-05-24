@@ -4,10 +4,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using BetaFortressTeam.BetaFortressClient.Util;
 
 namespace BetaFortressTeam.BetaFortressClient.Gui
 {
@@ -22,6 +25,14 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
         {
             this.btnNext.Enabled = false;
             this.btnBack.Enabled = false;
+
+            if(!Directory.Exists(ModManager.GetModPath))
+            {
+                MessageBox.Show("You cannot use the Recovery Tool if you don't have the mod installed.",
+                    "Beta Fortress Client", MessageBoxButtons.OK);
+                this.Close();
+                //return;
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)

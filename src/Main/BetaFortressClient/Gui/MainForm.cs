@@ -55,9 +55,12 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
             {
                 if(SetupManager.HasMissingModFiles())
                 {
-                    MessageBox.Show("We have detected that there are missing files!!\nYou can reinstall by clicking the RETRY button",
+                    DialogResult result = MessageBox.Show("We have detected that there are missing files!!\nYou can reinstall by clicking the RETRY button",
                         "Beta Fortress Client - Warning", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-                    return;
+                    if(result != DialogResult.Cancel)
+                    {
+                        new RecoveryToolForm().ShowDialog();
+                    }
                 }
 
                 PullOptions pullOptions = new PullOptions();
@@ -114,12 +117,12 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                 }
                 else
                 {
-                    InstallBetaFortress();
+                    gitCloneWorker.RunWorkerAsync();
                 }
             }
             else
             {
-                UpdateBetaFortress();
+                gitPullWorker.RunWorkerAsync();
             }
         }
 
@@ -177,6 +180,141 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
         {
             RecoveryToolForm recovery = new RecoveryToolForm();
             recovery.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new AboutWindow().ShowDialog();
+        }
+
+        private void gitCloneWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            // set the style Continuous
+            this.pBar.Style = ProgressBarStyle.Blocks;
+
+            var gitProgress = new ProgressHandler((serverProgressOutput) =>
+            {
+                // Print output to console
+                Console.Write(serverProgressOutput);
+
+                progressOutput = $"{serverProgressOutput}";
+
+                this.lblStatus.Text = progressOutput;
+                return true;
+            });
+
+            var gitTransferProgress = new TransferProgressHandler((serverTransferProgressOutput) =>
+            {
+                this.pBar.Maximum = serverTransferProgressOutput.TotalObjects;
+
+                try
+                {
+                    this.gitCloneWorker.ReportProgress(serverTransferProgressOutput.ReceivedObjects);
+                    this.Invoke(new Action(() => {
+                        this.pBar.Value = serverTransferProgressOutput.ReceivedObjects;
+                    }));
+                }
+                catch(Exception)
+                {
+
+                }
+
+                this.lblStatus.Text = "Objects: " + serverTransferProgressOutput.ReceivedObjects + " of " +
+                                        serverTransferProgressOutput.TotalObjects + " Received bytes of: " +
+                                        serverTransferProgressOutput.ReceivedBytes;
+
+                return true;
+            });
+
+            if (!Directory.Exists(Steam.GetSourceModsPath + "/bf"))
+            {
+                CloneOptions cloneOptions = new CloneOptions();
+                cloneOptions.FetchOptions.OnTransferProgress = gitTransferProgress;
+                cloneOptions.FetchOptions.Depth = 1;
+                cloneOptions.FetchOptions.OnProgress = gitProgress;
+                Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", Steam.GetSourceModsPath + "/bf", cloneOptions);
+            }
+         }
+
+        private void gitCloneWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            //this.pBar.Value = e.ProgressPercentage;
+        }
+
+        private void gitCloneWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("Installation was canceled.");
+            }
+            else if (e.Error != null)
+            {
+                MessageBox.Show("There was an error installing Beta Fortress\n" + e.Error,
+                    "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (Directory.Exists(Steam.GetSourceModsPath + "/bf"))
+                {
+                    if (SetupManager.HasMissingModFiles())
+                    {
+                        MessageBox.Show("We have detected that there are missing files during the installation!!\nYou can reinstall by clicking the RETRY button",
+                            "Beta Fortress Client - Warning", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                { 
+                    MessageBox.Show("Successfully installed Beta Fortress!\n" +
+                                    "The mod will appear after you've restarted the Steam client");
+                }
+            }
+        }
+
+        private void gitPullWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            if (Directory.Exists(Steam.GetSourceModsPath + "/bf"))
+            {
+                if (SetupManager.HasMissingModFiles())
+                {
+                    DialogResult result = MessageBox.Show("We have detected that there are missing files!!\nYou can reinstall by clicking the RETRY button",
+                        "Beta Fortress Client - Warning", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                    if (result != DialogResult.Cancel)
+                    {
+                        new RecoveryToolForm().ShowDialog();
+                    }
+                }
+
+                PullOptions pullOptions = new PullOptions();
+                pullOptions.FetchOptions.Depth = 1;
+
+                RepositoryOptions repoOptions = new RepositoryOptions();
+                repoOptions.WorkingDirectoryPath = Steam.GetSourceModsPath + "/bf";
+
+                Repository repo = new Repository(Steam.GetSourceModsPath + "/bf", repoOptions);
+                var sig = new Signature("Beta Fortress Client Git Credential", "aridityteam@gmail.com", new DateTimeOffset(DateTime.Now));
+                Commands.Pull(repo, sig, pullOptions);
+            }
+        }
+
+        private void gitPullWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void gitPullWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            if (Directory.Exists(Steam.GetSourceModsPath + "/bf"))
+            {
+                if (SetupManager.HasMissingModFiles())
+                {
+                    DialogResult result = MessageBox.Show("We have detected that there are missing files!!\nYou can reinstall by clicking the RETRY button",
+                        "Beta Fortress Client - Warning", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                    if (result != DialogResult.Cancel)
+                    {
+                        new RecoveryToolForm().ShowDialog();
+                    }
+                }
+            }
         }
     }
 }

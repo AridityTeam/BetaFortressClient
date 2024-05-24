@@ -107,11 +107,11 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         // note -- for source engine games: use a mutex instead but this is another workaround
         public static bool IsAppRunning( int appId )
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam\Apps\" + appId);
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam" + appId);
             if(key != null)
             {
                 // make sure the path actually exists before returning the value
-                if(key.GetValue("Running").ToString() == "1")
+                if(key.GetValue("RunningAppID").ToString() == $"{appId}")
                 { 
                     return true;
                 }
@@ -131,6 +131,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             Process p = new Process();
             p.StartInfo.FileName = GetSteamPath + "\\steam.exe";
             p.StartInfo.UseShellExecute = false;
+            p.StartInfo.Arguments = "-applaunch " + appId;
             p.Start();
         }
 
@@ -139,7 +140,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             Process p = new Process();
             p.StartInfo.FileName = GetSteamPath + "\\steam.exe";
             p.StartInfo.UseShellExecute = false;
-            p.StartInfo.Arguments = args;
+            p.StartInfo.Arguments = "-applaunch " + appId + " " + args;
             p.Start();
         }
     }

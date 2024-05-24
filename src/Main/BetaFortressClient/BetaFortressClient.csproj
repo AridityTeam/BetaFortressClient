@@ -50,6 +50,9 @@
     <EmbeddedResource Include="Gui\RecoveryToolForm.resx">
       <DependentUpon>RecoveryToolForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Gui\SDKLauncherForm.resx">
+      <DependentUpon>SDKLauncherForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Gui\SetupForm.resx">
       <DependentUpon>SetupForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -70,6 +73,12 @@
     <Compile Include="Gui\RecoveryToolForm.Designer.cs">
       <DependentUpon>RecoveryToolForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gui\SDKLauncherForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\SDKLauncherForm.Designer.cs">
+      <DependentUpon>SDKLauncherForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gui\SetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +90,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Startup\BFClientMain.cs" />
+    <Compile Include="Util\ModManager.cs" />
     <Compile Include="Util\SetupManager.cs" />
     <Compile Include="Util\SquirrelManager.cs" />
     <Compile Include="Util\Steam.cs" />
