@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -63,6 +62,47 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
                 }
                 catch(Exception e)
                 {
+                    #if DEBUG
+                    if(Debugger.IsAttached)
+                    {
+                        throw new InvalidOperationException("An error occured while checking for updates", e);
+                    }
+                    else
+                    {
+                        Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
+                        Console.WriteLine(e);
+                        Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
+
+                        using(StreamWriter writer = new StreamWriter("./bfclient.BetaFortressTeam.exception.log"))
+                        {
+                            OperatingSystem os = Environment.OSVersion;
+                            Version ver = os.Version;
+
+                            writer.WriteLine( "EXCEPTIONS OCCURED AS OF " + DateTime.Now );
+                            writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                            writer.WriteLine("Version: " + os.Version.ToString() );
+                            writer.WriteLine("  Major version: " + ver.Major);
+                            writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                            writer.WriteLine("  Minor version: " + ver.Minor);
+                            writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                            writer.WriteLine("  Build: " + ver.Build);
+                            writer.WriteLine("Platform: " + os.Platform.ToString() );
+                            writer.WriteLine("SP: " + os.ServicePack.ToString() );
+                            writer.WriteLine("Version String: " + os.VersionString.ToString() );
+                            writer.WriteLine("==========================================================================================");
+                            writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                            writer.WriteLine( e );
+                            writer.WriteLine("===========================================================================================");
+                            writer.Close();
+
+                            Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
+                        }
+
+                        MessageBox.Show("An error occured while checking for updates!!!\n" +
+                            "Please contact the developers!",
+                            "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    #else
                     Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
                     Console.WriteLine(e);
                     Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
@@ -95,6 +135,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
                     MessageBox.Show("An error occured while checking for updates!!!\n" +
                         "Please contact the developers!",
                         "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    #endif
                 }
             }
         }

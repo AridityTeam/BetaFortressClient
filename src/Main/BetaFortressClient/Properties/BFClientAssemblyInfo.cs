@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Beta Fortress Team")]
 [assembly: AssemblyProduct("Beta Fortress Client")]
-[assembly: AssemblyCopyright("Copyright © 2024 Beta Fortress Team")]
+[assembly: AssemblyCopyright("Copyright © 2024 Beta Fortress Team. All rights reserved")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.0.2")]
+[assembly: AssemblyFileVersion("0.0.2")]

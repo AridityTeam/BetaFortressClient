@@ -12,6 +12,8 @@ Beta Fortress Client is a .NET framework program for installing, updating, reset
 - .NET Framework v4.8 [Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer) and [Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-developer-pack-offline-installer)
 - [GitHub Desktop](https://desktop.github.com) (optional)
 
+**If NuGet packages are missing from the project, you might try to restore them**
+
 **STEP #1** \
 Clone the repository with Visual Studio or GitHub Desktop
 
