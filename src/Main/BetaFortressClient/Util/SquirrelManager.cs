@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Squirrel;
 
+#if DEBUG
+#pragma warning disable 1998 // this will disable the lack of await operators warning
+#endif
+
 namespace BetaFortressTeam.BetaFortressClient.Updater.Util
 {
     public static class SquirrelManager
@@ -18,6 +22,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
         {
             using(var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Beta-Fortress-2-Team/bf"))
             {
+                #if !DEBUG
                 try
                 {
                     var result = await mgr.Result.CheckForUpdate();
@@ -137,6 +142,9 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
                         "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     #endif
                 }
+                #else
+                Console.WriteLine("[ BFCLIENT UPDATE MANAGER ] Skipping Task function: CheckForUpdates()");
+                #endif
             }
         }
     }

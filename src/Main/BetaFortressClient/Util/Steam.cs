@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using Microsoft.Win32;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
 {
+    /// <summary>
+    /// Beta Fortress Team's own implementation of the Steam class like from TF2CLauncher
+    /// DO NOT CHANGE UNLESS YOU KNOW WHAT YOUR DOING
+    /// </summary>
     public static class Steam
     {
         /// <summary>
@@ -62,6 +65,37 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
         }
 
+        /// <summary>
+        /// Checks if Steam is installed by checking if the registry keys for Steam exists or checking if the
+        /// Steam installation directory exists
+        /// </summary>
+        public static bool IsSteamInstalled
+        {
+            get
+            {
+                // use the registry keys
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam");
+                if(key != null)
+                {
+                    return true;
+                }
+
+                // or check if the installation path exists
+                if(Directory.Exists(GetSteamPath))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if the specific app ID is installed
+        /// (ex.: 220 is HL2, 240 is CS:S, 440 is TF2)
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public static bool IsAppInstalled( int appId )
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam\Apps\" + appId);
@@ -83,6 +117,12 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
         }
 
+        /// <summary>
+        /// Checks if the specific app ID is updating
+        /// Only useful in some cases
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public static bool IsAppUpdating( int appId )
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam\Apps\" + appId);
@@ -105,6 +145,12 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         }
 
         // note -- for source engine games: use a mutex instead but this is another workaround
+        /// <summary>
+        /// Checks if the specific app ID is running
+        /// NOTE: If the game/software has a mutex, you can use the Mutex class as an better alternative.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public static bool IsAppRunning( int appId )
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam" + appId);
@@ -126,6 +172,10 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
         }
 
+        /// <summary>
+        /// Runs a specific app ID
+        /// </summary>
+        /// <param name="appId"></param>
         public static void RunApp( int appId )
         {
             Process p = new Process();
@@ -135,6 +185,11 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             p.Start();
         }
 
+        /// <summary>
+        /// Runs a specific app ID with extra launch options
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="args"></param>
         public static void RunApp( int appId, string args )
         {
             Process p = new Process();

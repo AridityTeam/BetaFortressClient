@@ -32,22 +32,22 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.lblFilesToReset = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
@@ -101,6 +101,18 @@
             this.tabPage1.Text = "Beginning";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(13, 231);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(452, 17);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "I understand that this utility will reset everything and I will still continue th" +
+    "rough this process.";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -135,38 +147,6 @@
             this.tabPage2.Text = "Reset";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(13, 231);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(452, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "I understand that this utility will reset everything and I will still continue th" +
-    "rough this process.";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(7, 3);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(198, 30);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Reset a specific file";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(9, 33);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(280, 17);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Which files will you reset? (Reinstall as of now.)";
-            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
@@ -179,6 +159,26 @@
             this.checkBox2.Text = "All mod files (Reinstall)";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(9, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(280, 17);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Which files will you reset? (Reinstall as of now.)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(7, 3);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(198, 30);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Reset a specific file";
             // 
             // tabPage3
             // 
@@ -193,6 +193,37 @@
             this.tabPage3.Text = "Pre-Reset";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // lblFilesToReset
+            // 
+            this.lblFilesToReset.AutoSize = true;
+            this.lblFilesToReset.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilesToReset.Location = new System.Drawing.Point(9, 61);
+            this.lblFilesToReset.Name = "lblFilesToReset";
+            this.lblFilesToReset.Size = new System.Drawing.Size(78, 13);
+            this.lblFilesToReset.TabIndex = 4;
+            this.lblFilesToReset.Text = "Files to reset: ";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(9, 33);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(489, 17);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Double-check that you\'ve setted the correct details or whatever shit in the proce" +
+    "ss.\r\n";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(7, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(325, 30);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Check that everything is correct";
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.progressBar1);
@@ -206,48 +237,14 @@
             this.tabPage4.Text = "Reset shit";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // progressBar1
             // 
-            this.tabPage5.Controls.Add(this.label10);
-            this.tabPage5.Controls.Add(this.label11);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(801, 349);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Ending";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(7, 3);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(325, 30);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Check that everything is correct";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(9, 33);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(489, 17);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Double-check that you\'ve setted the correct details or whatever shit in the proce" +
-    "ss.\r\n";
-            // 
-            // lblFilesToReset
-            // 
-            this.lblFilesToReset.AutoSize = true;
-            this.lblFilesToReset.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilesToReset.Location = new System.Drawing.Point(9, 61);
-            this.lblFilesToReset.Name = "lblFilesToReset";
-            this.lblFilesToReset.Size = new System.Drawing.Size(78, 13);
-            this.lblFilesToReset.TabIndex = 4;
-            this.lblFilesToReset.Text = "Files to reset: ";
+            this.progressBar1.Location = new System.Drawing.Point(10, 73);
+            this.progressBar1.MarqueeAnimationSpeed = 50;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(376, 23);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 6;
             // 
             // label8
             // 
@@ -269,14 +266,17 @@
             this.label9.TabIndex = 4;
             this.label9.Text = "Hold on tight!";
             // 
-            // progressBar1
+            // tabPage5
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 73);
-            this.progressBar1.MarqueeAnimationSpeed = 50;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(376, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 6;
+            this.tabPage5.Controls.Add(this.label10);
+            this.tabPage5.Controls.Add(this.label11);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(801, 349);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Ending";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // label10
             // 

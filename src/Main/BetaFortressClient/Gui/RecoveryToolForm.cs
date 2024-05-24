@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using LibGit2Sharp;
 using BetaFortressTeam.BetaFortressClient.Util;
 
 namespace BetaFortressTeam.BetaFortressClient.Gui
@@ -53,6 +54,8 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                 "Beta Fortress Client", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if(result == DialogResult.Yes) 
                 {
+                    Console.WriteLine("[ BFCLIENT ] Uninstalling Beta Fortress...");
+                    this.label9.Text = "Uninstalling Beta Fortress...";
                     var path = string.Format("{0}/BFClientFileHandler.exe", Application.StartupPath);
                     using (var process = Process.Start(new ProcessStartInfo(path)
                     {
@@ -61,7 +64,27 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                         CreateNoWindow = true
                     }))
                     {
-                        //process.WaitForExit();
+                        process.WaitForExit();
+                    }
+
+                    if (!Directory.Exists(Steam.GetSourceModsPath + "/bf"))
+                    {
+                        this.label9.Text = "Installing Beta Fortress...";
+                        CloneOptions cloneOptions = new CloneOptions();
+                        //cloneOptions.FetchOptions.OnTransferProgress = gitTransferProgress;
+                        cloneOptions.FetchOptions.Depth = 1;
+                        //cloneOptions.FetchOptions.OnProgress = gitProgress;
+                        Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", Steam.GetSourceModsPath + "/bf", cloneOptions);
+                    }
+                    else
+                    {
+                        this.label9.Text = "Cancelling operation due to an error occured";
+
+                        MessageBox.Show("The mod directory still exists.\n" +
+                            "Git cannot clone into non-empty directories\n" +
+                            "Cancelling operation...", "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                        this.tabControl1.SelectedIndex = 5;
                     }
                 }
             }

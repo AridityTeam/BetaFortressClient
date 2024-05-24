@@ -115,12 +115,16 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                                                .IsOSPlatform(OSPlatform.Windows);
             if(isWindows)
             {
-                SteamSetupPath = Application.StartupPath + "/temp/" + Path.GetRandomFileName();
-                SteamSetupExe = SteamSetupPath + "/SteamSetup.exe";
-
-                if(!Directory.Exists(SteamSetupPath))
+                Console.WriteLine("[ BFCLIENT ] Checking if Steam is installed...");
+                if(!Steam.IsSteamInstalled)
                 {
-                    Directory.CreateDirectory(SteamSetupPath);
+                    SteamSetupPath = Application.StartupPath + "/temp/" + Path.GetRandomFileName();
+                    SteamSetupExe = SteamSetupPath + "/SteamSetup.exe";
+
+                    if(!Directory.Exists(SteamSetupPath))
+                    {
+                        Directory.CreateDirectory(SteamSetupPath);
+                    }   
                 }
             }
 
@@ -130,7 +134,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             Task.Run(async() => await SquirrelManager.CheckForUpdates());
             #endif
 
-            if(Directory.Exists(Steam.GetSteamPath))
+            if(/* better workaround */ Steam.IsSteamInstalled /*Directory.Exists(Steam.GetSteamPath)*/)
             {
                 Console.WriteLine("[ BFCLIENT ] Steam is already installed");
             }
@@ -143,7 +147,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 
                 if(result == DialogResult.OK)
                 {
-                    // for some reason you get an "Class not registered" exception here
+                    // for some reason you get an "Class not registered" exception here in some Windows mods
                     try
                     {
                         //Process.Start("https://store.steampowered.com/about");    
@@ -151,6 +155,11 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                         wc.DownloadFileCompleted += SteamSetupDownloadCompleted;
                         wc.DownloadFile("https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe",
                                 SteamSetupExe);
+
+                        if(File.Exists(SteamSetupExe))
+                        {
+                            Process.Start(SteamSetupExe);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -320,7 +329,10 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
 
         private static void SteamSetupDownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            Process.Start(SteamSetupExe);
+            if(File.Exists(SteamSetupExe))
+            {
+                Process.Start(SteamSetupExe);
+            }
         }
 
         static void Run(string[] args)
