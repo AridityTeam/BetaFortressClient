@@ -14,7 +14,17 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            this.lblClientName.Content += " arch any cpu x86 version" + Assembly.GetExecutingAssembly().GetName().Version;
+            this.lblClientName.Content += " arch " + Assembly.GetExecutingAssembly().GetName().ProcessorArchitecture + " version " + Assembly.GetExecutingAssembly().GetName().Version;
+        }
+
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

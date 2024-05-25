@@ -41,6 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Highlighting\Resource\SourceCFG-Mode.xshd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +85,9 @@
     </Compile>
     <Compile Include="Gui\SetupForm.Designer.cs">
       <DependentUpon>SetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\TextEditorWindow.xaml.cs">
+      <DependentUpon>TextEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\BFClientAssemblyInfo.cs" />
     <Compile Include="Startup\App.xaml.cs">
@@ -149,6 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Gui\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\TextEditorWindow.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Startup\App.xaml">

@@ -20,7 +20,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
 
         public static async Task CheckForUpdates()
         {
-            using(var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Beta-Fortress-2-Team/bf"))
+            using(var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Beta-Fortress-2-Team/BetaFortressClient-Releases"))
             {
                 #if !DEBUG
                 try
@@ -40,7 +40,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
                                                     AppendLine("Would you like to download and install them?").
                                                     ToString();
 
-                        DialogResult result1 = MessageBox.Show(SquirrelManager.Message, "Beta Fortress Client", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        DialogResult result1 = MessageBox.Show(Message, "Beta Fortress Client", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 
                         if(result1 == DialogResult.Yes)
                         {
@@ -112,7 +112,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
                     Console.WriteLine(e);
                     Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
 
-                    using(StreamWriter writer = new StreamWriter("./bfclient.BetaFortressTeam.exception.log"))
+                    using(StreamWriter writer = new StreamWriter("./bfclient.squirrel.BetaFortressTeam.exception.log"))
                     {
                         OperatingSystem os = Environment.OSVersion;
                         Version ver = os.Version;

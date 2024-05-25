@@ -354,6 +354,13 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 }
                 #else
                 Application.EnableVisualStyles();
+
+                if(commandLineArgs.Contains("/showEarlyConfigEditor"))
+                {
+                    TextEditorWindow editor = new TextEditorWindow(ModManager.GetModPath + "/cfg/config.cfg");
+                    editor.Show();
+                }
+
                 if (commandLineArgs.Contains("/recovery"))
                 {
                     Console.WriteLine("[ BFCLIENT ] Loading RecoveryToolForm...");
