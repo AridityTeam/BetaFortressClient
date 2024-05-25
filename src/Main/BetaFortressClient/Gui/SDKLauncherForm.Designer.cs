@@ -28,27 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.sdkToolsList = new System.Windows.Forms.ListBox();
+            this.btnHammer = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // sdkToolsList
+            // btnHammer
             // 
-            this.sdkToolsList.FormattingEnabled = true;
-            this.sdkToolsList.Items.AddRange(new object[] {
-            "Hammer World Editor",
-            "Half-Life Model Viewer"});
-            this.sdkToolsList.Location = new System.Drawing.Point(2, 2);
-            this.sdkToolsList.Name = "sdkToolsList";
-            this.sdkToolsList.Size = new System.Drawing.Size(271, 121);
-            this.sdkToolsList.TabIndex = 0;
-            this.sdkToolsList.SelectedIndexChanged += new System.EventHandler(this.sdkToolsList_SelectedIndexChanged);
+            this.btnHammer.Location = new System.Drawing.Point(13, 13);
+            this.btnHammer.Name = "btnHammer";
+            this.btnHammer.Size = new System.Drawing.Size(164, 23);
+            this.btnHammer.TabIndex = 0;
+            this.btnHammer.Text = "Hammer World Editor";
+            this.btnHammer.UseVisualStyleBackColor = true;
+            this.btnHammer.Click += new System.EventHandler(this.btnHammer_Click);
             // 
             // SDKLauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(274, 283);
-            this.Controls.Add(this.sdkToolsList);
+            this.Controls.Add(this.btnHammer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -61,6 +59,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox sdkToolsList;
+        private System.Windows.Forms.Button btnHammer;
     }
 }

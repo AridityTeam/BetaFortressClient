@@ -3,18 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BetaFortressTeam.BetaFortressClient.Gui"
              xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Title="Configuration Editor - Beta Fortress Client">
+             mc:Ignorable="d" Title="Configuration Editor - Beta Fortress Client" Height="512" Width="833">
     <Grid>
         <avalonEdit:TextEditor x:Name="editor" 
                                Background="#FFC5C5C5" 
-                               Margin="0,0,0,35" 
+                               Margin="0,27,0,35" 
                                ShowLineNumbers="True" 
                                FontFamily="Consolas"
 				               FontSize="10pt"
                                IsReadOnly="False">// Configuration here</avalonEdit:TextEditor>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="79" Click="btnSave_Click"/>
+        <Label x:Name="lblFileName" Content="Label" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Initialized="lblFileName_Initialized"/>
     </Grid>
 </Window>
