@@ -66,6 +66,9 @@
     <Compile Include="Gui\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\DedicatedServerManagerServer.xaml.cs">
+      <DependentUpon>DedicatedServerManagerServer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +160,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Gui\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\DedicatedServerManagerServer.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gui\TextEditorWindow.xaml">
