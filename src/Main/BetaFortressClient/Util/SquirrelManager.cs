@@ -37,7 +37,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
 
         public static async Task CheckForUpdates()
         {
-            using(var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Beta-Fortress-2-Team/BetaFortressClient-Releases"))
+            using(var mgr = UpdateManager.GitHubUpdateManager("https://github.com/AridityTeam/BetaFortressClient-Releases"))
             {
                 #if !DEBUG
                 try
