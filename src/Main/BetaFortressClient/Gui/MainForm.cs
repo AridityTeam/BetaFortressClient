@@ -249,7 +249,7 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                 cloneOptions.FetchOptions.OnTransferProgress = gitTransferProgress;
                 cloneOptions.FetchOptions.Depth = 1;
                 cloneOptions.FetchOptions.OnProgress = gitProgress;
-                Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", Steam.GetSourceModsPath + "/bf", cloneOptions);
+                Repository.Clone("https://github.com/AridityTeam/bf.git", Steam.GetSourceModsPath + "/bf", cloneOptions);
             }
          }
 
