@@ -15,7 +15,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.    
 -->
     
-<Window x:Class="BetaFortressTeam.BetaFortressClient.Gui.DedicatedServerManagerServer"
+<Window x:Class="BetaFortressTeam.BetaFortressClient.Gui.DedicatedServerManagerWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

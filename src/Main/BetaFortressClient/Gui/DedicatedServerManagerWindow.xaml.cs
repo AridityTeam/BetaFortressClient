@@ -21,11 +21,11 @@ using System.Windows;
 namespace BetaFortressTeam.BetaFortressClient.Gui
 {
     /// <summary>
-    /// Interaction logic for DedicatedServerManagerServer.xaml
+    /// Interaction logic for DedicatedServerManagerWindow.xaml
     /// </summary>
-    public partial class DedicatedServerManagerServer : Window
+    public partial class DedicatedServerManagerWindow : Window
     {
-        public DedicatedServerManagerServer()
+        public DedicatedServerManagerWindow()
         {
             InitializeComponent();
         }
