@@ -41,7 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>game.ico</ApplicationIcon>
+    <ApplicationIcon>bfclient.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -66,8 +66,8 @@
     <Compile Include="Gui\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gui\DedicatedServerManagerServer.xaml.cs">
-      <DependentUpon>DedicatedServerManagerServer.xaml</DependentUpon>
+    <Compile Include="Gui\DedicatedServerManagerWindow.xaml.cs">
+      <DependentUpon>DedicatedServerManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\MainForm.cs">
       <SubType>Form</SubType>
@@ -162,7 +162,7 @@
     <Page Include="Gui\AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gui\DedicatedServerManagerServer.xaml">
+    <Page Include="Gui\DedicatedServerManagerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +188,7 @@
     <Content Include="Assets\gplv3-with-text.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="game.ico" />
+    <Content Include="bfclient.ico" />
     <Content Include="license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
