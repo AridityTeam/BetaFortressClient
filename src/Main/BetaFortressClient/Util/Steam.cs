@@ -83,19 +83,25 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         }
 
         /// <summary>
-        /// Gets the "Steam/steamapps/common" directory
+        /// Returns the "Steam/steamapps/common" directory if it exists
         /// </summary>
         public static string GetSteamAppsPath
         {
             get
             {
-                return GetSteamPath + "/steamapps/common";
+                if(Directory.Exists(GetSteamPath + "/steamapps/common"))
+                {
+                    return GetSteamPath + "/steamapps/common";
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
         /// <summary>
-        /// Checks if Steam is installed by checking if the registry keys for Steam exists or checking if the
-        /// Steam installation directory exists
+        /// Checks if Steam is installed by checking if the registry keys for Steam exists or checking if the Steam installation directory exists
         /// </summary>
         public static bool IsSteamInstalled
         {
