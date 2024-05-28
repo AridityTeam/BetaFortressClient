@@ -385,7 +385,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 }
                 else
                 {
-                    Console.WriteLine("[ BFCLIENT ] Loading UpdateForm...");
+                    Console.WriteLine("[ BFCLIENT ] Loading MainForm...");
                     Application.Run(new MainForm());
                 }
                 #endif

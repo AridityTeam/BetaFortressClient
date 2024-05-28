@@ -179,6 +179,10 @@
       <Project>{19dee286-993d-4668-95f9-0869e079b513}</Project>
       <Name>LibGit2Sharp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BetaFortressTeam.BetaFortressClient\BetaFortressTeam.BetaFortressClient.csproj">
+      <Project>{5ae84f21-3f2d-45a4-b62a-be713a2fae5f}</Project>
+      <Name>BetaFortressTeam.BetaFortressClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\gplv3-with-text.png">

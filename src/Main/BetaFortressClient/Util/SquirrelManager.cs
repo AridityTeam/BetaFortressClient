@@ -25,7 +25,7 @@ using System.Windows.Forms;
 using Squirrel;
 
 #if DEBUG
-#pragma warning disable 1998 // this will disable the lack of await operators warning
+    #pragma warning disable 1998 // this will disable the lack of await operators warning
 #endif
 
 namespace BetaFortressTeam.BetaFortressClient.Updater.Util
@@ -155,6 +155,7 @@ namespace BetaFortressTeam.BetaFortressClient.Updater.Util
                     }
 
                     MessageBox.Show("An error occured while checking for updates!!!\n" +
+                        "(A log file has been made bfclient.squirrel.BetaFortressTeam.exception.log)\n" +
                         "Please contact the developers!",
                         "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     #endif

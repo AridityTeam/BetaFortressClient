@@ -250,6 +250,9 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                 cloneOptions.FetchOptions.Depth = 1;
                 cloneOptions.FetchOptions.OnProgress = gitProgress;
                 Repository.Clone("https://github.com/AridityTeam/bf.git", Steam.GetSourceModsPath + "/bf", cloneOptions);
+
+                this.lblStatus.Text = "Ready!";
+                this.pBar.Style = ProgressBarStyle.Marquee;
             }
          }
 
@@ -289,6 +292,8 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
 
         private void gitPullWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            this.lblStatus.Text = "Updating Beta Fortress...";
+
             if (Directory.Exists(Steam.GetSourceModsPath + "/bf"))
             {
                 if (SetupManager.HasMissingModFiles())
@@ -301,15 +306,28 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                     }
                 }
 
-                PullOptions pullOptions = new PullOptions();
-                pullOptions.FetchOptions.Depth = 1;
+                using(var repo = new Repository(ModManager.GetModPath))
+                {
+                    var gitTransferProgress = new CheckoutProgressHandler((path, completedSteps, totalSteps) =>
+                    {
+                        this.Invoke(new Action(() => {
+                            this.pBar.Style = ProgressBarStyle.Continuous;
+                            this.pBar.Maximum = totalSteps;
+                            this.pBar.Value = completedSteps;
+                        }));
+                    });
+                    
 
-                RepositoryOptions repoOptions = new RepositoryOptions();
-                repoOptions.WorkingDirectoryPath = Steam.GetSourceModsPath + "/bf";
+                    var trackedBranch = repo.Branches.FirstOrDefault();
+                    CheckoutOptions checkoutOptions = new CheckoutOptions();
+                    checkoutOptions.OnCheckoutProgress = gitTransferProgress;
 
-                Repository repo = new Repository(Steam.GetSourceModsPath + "/bf", repoOptions);
-                var sig = new Signature("Beta Fortress Client Git Credential", "aridityteam@gmail.com", new DateTimeOffset(DateTime.Now));
-                Commands.Pull(repo, sig, pullOptions);
+                    Commit originHeadCommit = repo.ObjectDatabase.FindMergeBase(repo.Branches[trackedBranch.FriendlyName].Tip, repo.Head.Tip);
+                    repo.Reset(ResetMode.Hard, originHeadCommit, checkoutOptions);
+
+                    this.lblStatus.Text = "Ready!";
+                    this.pBar.Style = ProgressBarStyle.Marquee;
+                }
             }
         }
 
