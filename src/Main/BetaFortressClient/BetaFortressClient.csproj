@@ -87,6 +87,9 @@
     <Compile Include="Gui\SDKLauncherForm.Designer.cs">
       <DependentUpon>SDKLauncherForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gui\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\SetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gui\DedicatedServerManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
