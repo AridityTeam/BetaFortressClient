@@ -23,6 +23,6 @@ Once the cloning process is done, open the directory of where you've cloned the 
 **STEP #3** \
 Once your inside of Visual Studio with the solution opened up, you can now make your changes. To build, press `CTRL + SHIFT + B` or right-click on the solution from the Solution Explorer and then `Build Solution`.
 
-You can find classes and definitions of Beta Fortress Client's code here: https://github.com/AridityTeam/BetaFortressClient/docs/code-references.md
+You can find classes and definitions of Beta Fortress Client's code here: https://github.com/AridityTeam/BetaFortressClient/tree/master/docs/code-references.md
 
 And that concludes the tutorial on how to build Beta Fortress Client. Hope this helps you on setting up your development environment for .NET or build the source code of Beta Fortress Client!
