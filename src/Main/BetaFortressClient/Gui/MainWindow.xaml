@@ -1,0 +1,71 @@
+﻿<!-- 
+    Copyright (C) 2024 The Aridity Team, All rights reserved
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.    
+-->
+
+<Window x:Class="BetaFortressTeam.BetaFortressClient.Gui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BetaFortressTeam.BetaFortressClient.Gui"
+        mc:Ignorable="d" AllowsTransparency="True" Background="Transparent" WindowStyle="None" 
+        Title="Beta Fortress Client" Height="450" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Initialized="Window_Initialized">
+    <Border CornerRadius="25" BorderBrush="Black" BorderThickness="2" Padding="6" Background="GhostWhite">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="78*"/>
+                <RowDefinition Height="139*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="btnPlay" Content="Play" HorizontalAlignment="Left" Margin="144,95,0,0" VerticalAlignment="Top" Width="93" Click="btnPlay_Click"/>
+            <Label x:Name="lblStatus" Content="Ready!" HorizontalAlignment="Left" Margin="26,125,0,0" VerticalAlignment="Top"/>
+            <ProgressBar x:Name="pBar" HorizontalAlignment="Left" Height="10" Margin="32,146,0,0" VerticalAlignment="Top" Width="246" Maximum="999999999"/>
+            <Button x:Name="btnSettings" Content="Settings" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="66" Click="btnSettings_Click" Grid.Row="1"/>
+            <Button x:Name="btnInstallnUpdate" Content="Install" HorizontalAlignment="Left" Margin="32,95,0,0" VerticalAlignment="Top" Width="93" Click="btnInstallnUpdate_Click"/>
+            <Grid VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="230" Margin="0,5,5,0" >
+                <Button Content="X"  Width="25" Margin="192,0,13,0" Click="Close_Click"/>
+                <Button Content="-" Width="25"  Margin="162,0,43,0" Click="Minimize_Click"/>
+            </Grid>
+
+            <Border x:Name="settings" CornerRadius="25" BorderBrush="Black" BorderThickness="2" Padding="6" Background="#FF0A84E2" Margin="2,95,2,0" VerticalAlignment="Top" Height="0" Grid.RowSpan="2">
+                <Grid>
+                    <Label Content="Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+                    <Button x:Name="btnEditModCfg"  Content="Edit Mod configurations" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="188" Click="btnEditModCfg_Click"/>
+                    <Button x:Name="btnAboutWindow" Content="About BF Client" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="102" Click="btnAboutWindow_Click"/>
+                    <Button x:Name="btnCloseSettings" Content="X" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Height="21" Width="21" Click="btnCloseSettings_Click"/>
+                    <Button x:Name="btnUninstall"  Content="Uninstall Beta Fortress" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="188" Click="btnUninstall_Click"/>
+                    <Button x:Name="btnRecovery"  Content="Recovery Tool" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="188" Click="btnRecovery_Click"/>
+                    <Label Content="Launch options" HorizontalAlignment="Left" Margin="330,34,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="launchOptions" HorizontalAlignment="Left" Margin="336,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
+
+                </Grid>
+            </Border>
+            <Label Content="Beta Fortress Client" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="36"/>
+            <Label Content="by The Aridity Team" HorizontalAlignment="Left" Margin="151,46,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Foreground="#FF0AA8EC"/>
+        </Grid>
+    </Border>
+    <Window.Resources>
+        <Storyboard x:Key="openSettings">
+            <DoubleAnimation x:Name="hi" Storyboard.TargetName="settings" Storyboard.TargetProperty="Height"
+                             Duration="0:0:0.5" From="0" To="339">
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="closeSettings">
+            <DoubleAnimation x:Name="bye" Storyboard.TargetName="settings" Storyboard.TargetProperty="Height"
+                             Duration="0:0:0.5" From="339" To="0">
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+</Window>

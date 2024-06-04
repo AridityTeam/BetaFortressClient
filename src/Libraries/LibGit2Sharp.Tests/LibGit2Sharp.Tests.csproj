@@ -4,6 +4,8 @@
     <TargetFrameworks Condition="'$(TargetFrameworks)'==''">net472;net6.0;net8.0</TargetFrameworks>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <BaseOutputPath>..\..\..\bin</BaseOutputPath>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

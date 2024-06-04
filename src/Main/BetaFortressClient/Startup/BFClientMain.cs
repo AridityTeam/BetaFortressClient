@@ -1,5 +1,5 @@
 ﻿/* 
-    Copyright (C) 2024 The Beta Fortress Team, All rights reserved
+    Copyright (C) 2024 The Aridity Team, All rights reserved
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,10 +19,12 @@
 //#define RELEASE_BUILD
 #define BETA_BUILD
 //#define CONFIDENTIAL_BUILD
+//#define SQUIRREL_UPDATER
 
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.IO;
 #if HAS_SETUP
 using Microsoft.Win32;
@@ -30,14 +32,20 @@ using Microsoft.Win32;
 using System.Reflection;
 using System.Security.Principal;
 using System.Runtime.InteropServices;
-using System.Net;
-using System.Threading.Tasks;
+//using System.Net.Http;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // BF Client-specific namespaces
 using BetaFortressTeam.BetaFortressClient.Util;
 using BetaFortressTeam.BetaFortressClient.Gui;
+#if SQUIRREL_UPDATER
 using BetaFortressTeam.BetaFortressClient.Updater.Util;
+#endif
+
+#if WINDOWS
+#pragma warning disable 1416
+#endif
 
 namespace BetaFortressTeam.BetaFortressClient.Startup
 {
@@ -51,11 +59,17 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
         static string SteamSetupPath = null;
         static string SteamSetupExe = null;
 
+        static bool isWindows = System.Runtime.InteropServices.RuntimeInformation
+                                               .IsOSPlatform(OSPlatform.Windows);
+
+        static App app;
+
         public static string[] CommandLineArgs
         {
             get { return commandLineArgs; }
         }
 
+        #if WINDOWS
         private static bool IsElevated()
         {
             using (var identity = WindowsIdentity.GetCurrent())
@@ -65,6 +79,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
         }
+        #endif
 
         [STAThread()]
         public static void Main(string[] args)
@@ -128,8 +143,6 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
             #endif
 
-            bool isWindows = System.Runtime.InteropServices.RuntimeInformation
-                                               .IsOSPlatform(OSPlatform.Windows);
             if(isWindows)
             {
                 Console.WriteLine("[ BFCLIENT ] Checking if Steam is installed...");
@@ -146,9 +159,13 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
 
             #if RELEASE_BUILD // place these here for future purposes
+            #if SQUIRREL_UPDATER
             SquirrelManager.CheckForUpdates();
+            #endif
             #elif BETA_BUILD
+            #if SQUIRREL_UPDATER
             Task.Run(async() => await SquirrelManager.CheckForUpdates());
+            #endif
             #endif
 
             if(/* better workaround */ Steam.IsSteamInstalled /*Directory.Exists(Steam.GetSteamPath)*/)
@@ -168,10 +185,23 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     try
                     {
                         //Process.Start("https://store.steampowered.com/about");    
+                        /*
                         WebClient wc = new WebClient();
                         wc.DownloadFileCompleted += SteamSetupDownloadCompleted;
                         wc.DownloadFile("https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe",
                                 SteamSetupExe);
+                        */
+                        // fucking leave this here for a moment
+                        //Task.Run( async() =>
+                        //{
+                        //    using(HttpClient client = new HttpClient()) 
+                        //    {
+                        //        using (HttpResponseMessage response = await client.GetAsync("https://cdn.cloudflare.steamstatic.com/client/installer"))
+                        //        using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
+                        //        {
+                        //        }
+                        //    }
+                        //});
 
                         if(File.Exists(SteamSetupExe))
                         {
@@ -273,15 +303,10 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                                           "Usage: BetaFortressClient.exe /console [args]\n" +
                                           "/help - show this help text\n" +
                                           "/doNotAllocConsole - do not alloc the console" +
-                                          "/initializeGui - init the gui even with the console" /*+
-                                          "/uninstall - uninstalls the mod"*/);
+                                          "/initializeGui - init the gui even with the console" +
+                                          "/uninstall - uninstalls the mod");
                         Console.ReadKey();
                     }
-
-                    //if(commandLineArgs.Contains("/uninstall"))
-                    //{
-                    //    MainForm.UninstallBetaFortress();
-                    //}
                 }
             }
             catch (Exception e)
@@ -338,7 +363,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
                 }
 
-                MessageBox.Show("An error has occured while trying to execute a function inside Beta Fortress Client\nAn exception log file has been created named " 
+                MessageBox.Show("An error has occured while trying to execute a function inside Beta Fortress Client\nAn exception log file has been created named "
                     + @"""bfclient.BetaFortressTeam.exception.log""" + "\nPlease upload the mentioned file name to the developers!", 
                     "Beta Fortress Client - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -354,7 +379,14 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
 
         static void Run(string[] args)
         {
+            LuaManager.LoadLuaScripts();
+            LuaManager.LoadAddonScripts();
+
+            app = new App();
+
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
+
             try
             {
                 #if HAS_SETUP
@@ -370,23 +402,51 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     Application.Run(new MainForm());
                 }
                 #else
-                Application.EnableVisualStyles();
+
+                if(!commandLineArgs.Contains("/disableHolidayManager"))
+                {
+                    // do an action
+                    HolidayManager.DoHolidayAction();
+                }
 
                 if(commandLineArgs.Contains("/showEarlyConfigEditor"))
                 {
                     TextEditorWindow editor = new TextEditorWindow(ModManager.GetModPath + "/cfg/config.cfg");
                     editor.Show();
                 }
+                
+                if(commandLineArgs.Contains("/uninstall"))
+                {
+                    if(IsElevated())
+                    {
+                        MainWindow.UninstallBetaFortress(); 
+                    }
+                    else
+                    {
+                        MessageBox.Show("/uninstall requires the app to be ran as an administrator.");
+                    }
+                }
+
+                // this is so fucking dumb
+                if(commandLineArgs.Contains("/webview"))
+                {
+                    if(commandLineArgs.Contains("/page:wiki"))
+                    {
+                        app.Run(new WebViewWindow("https://github.com/AridityTeam/BetaFortressClient/tree/main/docs"));
+                    }
+                }
 
                 if (commandLineArgs.Contains("/recovery"))
                 {
-                    Console.WriteLine("[ BFCLIENT ] Loading RecoveryToolForm...");
                     Application.Run(new RecoveryToolForm());
                 }
                 else
                 {
-                    Console.WriteLine("[ BFCLIENT ] Loading MainForm...");
-                    Application.Run(new MainForm());
+                    if(!commandLineArgs.Contains("/webview"))
+                    {
+                        Console.WriteLine("[ BFCLIENT ] Loading MainWindow...");
+                        app.Run(new MainWindow());
+                    }
                 }
                 #endif
             }
@@ -395,9 +455,11 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 Console.WriteLine("[ BFCLIENT ] Leaving function: Run(string[] args) ");
 
                 #if RELEASE_BUILD // place these here for future purposes
-                Task.Run(async () => SquirrelManager.CheckForUpdates());
-                #elif BETA_BUILD
                 Task.Run(async () => await SquirrelManager.CheckForUpdates());
+                #elif BETA_BUILD
+                #if SQUIRREL_UPDATER
+                Task.Run(async () => await SquirrelManager.CheckForUpdates());
+                #endif
                 #endif
             }
         }

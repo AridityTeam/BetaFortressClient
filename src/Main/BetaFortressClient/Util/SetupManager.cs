@@ -1,5 +1,5 @@
 ﻿/* 
-    Copyright (C) 2024 The Beta Fortress Team, All rights reserved
+    Copyright (C) 2024 The Aridity Team, All rights reserved
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -45,6 +45,10 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                 return true;
             }
             if(!Directory.Exists(modPath + "/sound"))
+            {
+                return true;
+            }
+            if(!File.Exists(modPath + "/gameinfo.txt"))
             {
                 return true;
             }

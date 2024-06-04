@@ -1,5 +1,5 @@
 ﻿/* 
-    Copyright (C) 2024 The Beta Fortress Team, All rights reserved
+    Copyright (C) 2024 The Aridity Team, All rights reserved
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -73,12 +73,13 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                 {
                     Console.WriteLine("[ BFCLIENT ] Uninstalling Beta Fortress...");
                     this.label9.Text = "Uninstalling Beta Fortress...";
-                    var path = string.Format("{0}/BFClientFileHandler.exe", Application.StartupPath);
+                    var path = string.Format("{0}/BetaFortressClient.exe", Application.StartupPath);
                     using (var process = Process.Start(new ProcessStartInfo(path)
                     {
                         Verb = "runas",
-                        Arguments = "/doNotAllocConsole /uninstall",
-                        CreateNoWindow = true
+                        UseShellExecute = true,
+                        Arguments = "/console /doNotAllocConsole /uninstall",
+                        WindowStyle = ProcessWindowStyle.Hidden
                     }))
                     {
                         process.WaitForExit();
@@ -101,7 +102,7 @@ namespace BetaFortressTeam.BetaFortressClient.Gui
                             "Git cannot clone into non-empty directories\n" +
                             "Cancelling operation...", "Beta Fortress Client", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
-                        this.tabControl1.SelectedIndex = 5;
+                        this.Close();
                     }
                 }
             }

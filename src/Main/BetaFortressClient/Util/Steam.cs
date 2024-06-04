@@ -1,5 +1,5 @@
 ﻿/* 
-    Copyright (C) 2024 The Beta Fortress Team, All rights reserved
+    Copyright (C) 2024 The Aridity Team, All rights reserved
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -190,7 +190,6 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam" + appId);
             if(key != null)
             {
-                // make sure the path actually exists before returning the value
                 if(key.GetValue("RunningAppID").ToString() == $"{appId}")
                 { 
                     return true;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,24 +16,20 @@ using System.Windows.Shapes;
 namespace BetaFortressTeam.BetaFortressClient.Gui
 {
     /// <summary>
-    /// Interaction logic for AboutWindow.xaml
+    /// Interaction logic for WebViewWindow.xaml
     /// </summary>
-    public partial class AboutWindow : Window
+    public partial class WebViewWindow : Window
     {
-        public AboutWindow()
+        public WebViewWindow()
         {
             InitializeComponent();
         }
 
-        private void Window_Initialized(object sender, EventArgs e)
+        public WebViewWindow(string url)
         {
-            this.Title += " " + Assembly.GetExecutingAssembly().GetName().FullName;
-            this.lblVersion.Content += " " + Assembly.GetExecutingAssembly().GetName().Version;
-        }
+            InitializeComponent();
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
+            this.webview.Source = new Uri(url);
         }
     }
 }
