@@ -9,7 +9,7 @@ Beta Fortress Client is a .NET framework program for installing, updating, reset
 ## How to build the source code?
 **Requirements**
 - Visual Studio 2022 [Community](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false) (or [Professional](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Professional&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false)) Edition with .NET desktop development
-- .NET Framework v4.8 [Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer) and [Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-developer-pack-offline-installer)
+- .NET 8 [SDK x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.301-windows-x64-installer) and [Runtime x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.6-windows-x64-installer) (Install the x86 one if your compiling in 32-bit)
 - [GitHub Desktop](https://desktop.github.com) (optional)
 
 **If NuGet packages are missing from the project, you might try to restore them**
