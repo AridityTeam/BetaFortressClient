@@ -34,6 +34,7 @@ using System.Security.Principal;
 using System.Runtime.InteropServices;
 //using System.Net.Http;
 //using System.Threading.Tasks;
+using System.Windows.Interop;
 using System.Windows.Forms;
 
 // BF Client-specific namespaces
@@ -283,7 +284,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             {
                 if(!commandLineArgs.Contains("/console"))
                 {
-                    Run(commandLineArgs);
+                    Run();
                 }
                 else
                 {
@@ -294,7 +295,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
 
                     if(!commandLineArgs.Contains("/initializeGui"))
                     {
-                        Run(args);
+                        Run();
                     }
 
                     if(commandLineArgs.Contains("/help"))
@@ -377,12 +378,20 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
         }
 
-        static void Run(string[] args)
+        static void ComponentDispatcher_ThreadIdle(object sender, EventArgs e)
+		{
+			System.Windows.Forms.Application.RaiseIdle(e);
+		}
+
+        static void Run()
         {
             LuaManager.LoadLuaScripts();
             LuaManager.LoadAddonScripts();
 
             app = new App();
+
+            ComponentDispatcher.ThreadIdle -= ComponentDispatcher_ThreadIdle; // ensure we don't register twice
+			ComponentDispatcher.ThreadIdle += ComponentDispatcher_ThreadIdle;
 
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
