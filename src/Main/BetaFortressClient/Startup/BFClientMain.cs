@@ -169,6 +169,123 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             #endif
             #endif
 
+            static void HandleException(Exception ex)
+            {
+                 Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
+                 Console.WriteLine(ex);
+                 Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
+
+                 using (StreamWriter writer = new StreamWriter("./bfclient.BetaFortressTeam" + ".exception.log"))
+                 {
+                    OperatingSystem os = Environment.OSVersion;
+                    Version ver = os.Version;
+
+                    if (commandLineArgs.Contains("/console"))
+                    {
+                        writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                        writer.WriteLine("NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now);
+                        writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                        writer.WriteLine("Version: " + os.Version.ToString());
+                        writer.WriteLine("  Major version: " + ver.Major);
+                        writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                        writer.WriteLine("  Minor version: " + ver.Minor);
+                        writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                        writer.WriteLine("  Build: " + ver.Build);
+                        writer.WriteLine("Platform: " + os.Platform.ToString());
+                        writer.WriteLine("SP: " + os.ServicePack.ToString());
+                        writer.WriteLine("Version String: " + os.VersionString.ToString());
+                        writer.WriteLine("==========================================================================================");
+                        writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                        writer.WriteLine(ex);
+                        writer.WriteLine("===========================================================================================");
+                        writer.Close();
+                    }
+                    else
+                    {
+                        writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                        writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                        writer.WriteLine("Version: " + os.Version.ToString());
+                        writer.WriteLine("  Major version: " + ver.Major);
+                        writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                        writer.WriteLine("  Minor version: " + ver.Minor);
+                        writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                        writer.WriteLine("  Build: " + ver.Build);
+                        writer.WriteLine("Platform: " + os.Platform.ToString());
+                        writer.WriteLine("SP: " + os.ServicePack.ToString());
+                        writer.WriteLine("Version String: " + os.VersionString.ToString());
+                        writer.WriteLine("==========================================================================================");
+                        writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                        writer.WriteLine(ex);
+                        writer.WriteLine("===========================================================================================");
+                        writer.Close();
+                    }
+
+                    Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
+                    Console.WriteLine("[ BFCLIENT ] Closing...");
+                    return;
+                 }
+            }
+
+            static void HandleExceptionWithMessage(Exception ex, bool showMessage)
+            {
+                 Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
+                 Console.WriteLine(ex);
+                 Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
+
+                 using (StreamWriter writer = new StreamWriter("./bfclient.BetaFortressTeam" + ".exception.log"))
+                 {
+                    OperatingSystem os = Environment.OSVersion;
+                    Version ver = os.Version;
+
+                    if (commandLineArgs.Contains("/console"))
+                    {
+                        writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                        writer.WriteLine("NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now);
+                        writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                        writer.WriteLine("Version: " + os.Version.ToString());
+                        writer.WriteLine("  Major version: " + ver.Major);
+                        writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                        writer.WriteLine("  Minor version: " + ver.Minor);
+                        writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                        writer.WriteLine("  Build: " + ver.Build);
+                        writer.WriteLine("Platform: " + os.Platform.ToString());
+                        writer.WriteLine("SP: " + os.ServicePack.ToString());
+                        writer.WriteLine("Version String: " + os.VersionString.ToString());
+                        writer.WriteLine("==========================================================================================");
+                        writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                        writer.WriteLine(ex);
+                        writer.WriteLine("===========================================================================================");
+                        writer.Close();
+                    }
+                    else
+                    {
+                        writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                        writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                        writer.WriteLine("Version: " + os.Version.ToString());
+                        writer.WriteLine("  Major version: " + ver.Major);
+                        writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                        writer.WriteLine("  Minor version: " + ver.Minor);
+                        writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                        writer.WriteLine("  Build: " + ver.Build);
+                        writer.WriteLine("Platform: " + os.Platform.ToString());
+                        writer.WriteLine("SP: " + os.ServicePack.ToString());
+                        writer.WriteLine("Version String: " + os.VersionString.ToString());
+                        writer.WriteLine("==========================================================================================");
+                        writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                        writer.WriteLine(ex);
+                        writer.WriteLine("===========================================================================================");
+                        writer.Close();
+                    }
+
+                    Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
+                    Console.WriteLine("[ BFCLIENT ] Closing...");
+                 }
+
+                 MessageBox.Show("An error has occured while trying to execute a function inside Beta Fortress Client\nAn exception log file has been created named "
+                    + @"""bfclient.BetaFortressTeam.exception.log""" + "\nPlease upload the mentioned file name to the developers!", 
+                    "Beta Fortress Client - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             if(/* better workaround */ Steam.IsSteamInstalled /*Directory.Exists(Steam.GetSteamPath)*/)
             {
                 Console.WriteLine("[ BFCLIENT ] Steam is already installed");
@@ -211,59 +328,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
-                        Console.WriteLine(e);
-                        Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
-
-                        using (StreamWriter writer = new StreamWriter("./bfclient.BetaFortressTeam" + ".exception.log"))
-                        {
-                            OperatingSystem os = Environment.OSVersion;
-                            Version ver = os.Version;
-
-                            if (commandLineArgs.Contains("/console"))
-                            {
-                                writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
-                                writer.WriteLine("NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now);
-                                writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                                writer.WriteLine("Version: " + os.Version.ToString());
-                                writer.WriteLine("  Major version: " + ver.Major);
-                                writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                                writer.WriteLine("  Minor version: " + ver.Minor);
-                                writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                                writer.WriteLine("  Build: " + ver.Build);
-                                writer.WriteLine("Platform: " + os.Platform.ToString());
-                                writer.WriteLine("SP: " + os.ServicePack.ToString());
-                                writer.WriteLine("Version String: " + os.VersionString.ToString());
-                                writer.WriteLine("==========================================================================================");
-                                writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                                writer.WriteLine(e);
-                                writer.WriteLine("===========================================================================================");
-                                writer.Close();
-                            }
-                            else
-                            {
-                                writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
-                                writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                                writer.WriteLine("Version: " + os.Version.ToString());
-                                writer.WriteLine("  Major version: " + ver.Major);
-                                writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                                writer.WriteLine("  Minor version: " + ver.Minor);
-                                writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                                writer.WriteLine("  Build: " + ver.Build);
-                                writer.WriteLine("Platform: " + os.Platform.ToString());
-                                writer.WriteLine("SP: " + os.ServicePack.ToString());
-                                writer.WriteLine("Version String: " + os.VersionString.ToString());
-                                writer.WriteLine("==========================================================================================");
-                                writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                                writer.WriteLine(e);
-                                writer.WriteLine("===========================================================================================");
-                                writer.Close();
-                            }
-
-                            Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
-                            Console.WriteLine("[ BFCLIENT ] Closing...");
-                            return;
-                        }
+                        HandleException(e);
                     }
                 }
             }
@@ -312,61 +377,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
             catch (Exception e)
             {
-                Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
-                Console.WriteLine(e);
-                Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
-
-                using( StreamWriter writer = new StreamWriter( "./bfclient.BetaFortressTeam" + ".exception.log" ) )
-                {
-                    OperatingSystem os = Environment.OSVersion;
-                    Version ver = os.Version;
-
-                    if(commandLineArgs.Contains("/console"))
-                    {
-                        writer.WriteLine( "EXCEPTIONS OCCURED AS OF " + DateTime.Now );
-                        writer.WriteLine( "NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now );
-                        writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                        writer.WriteLine("Version: " + os.Version.ToString() );
-                        writer.WriteLine("  Major version: " + ver.Major);
-                        writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                        writer.WriteLine("  Minor version: " + ver.Minor);
-                        writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                        writer.WriteLine("  Build: " + ver.Build);
-                        writer.WriteLine("Platform: " + os.Platform.ToString() );
-                        writer.WriteLine("SP: " + os.ServicePack.ToString() );
-                        writer.WriteLine("Version String: " + os.VersionString.ToString() );
-                        writer.WriteLine("==========================================================================================");
-                        writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                        writer.WriteLine( e );
-                        writer.WriteLine("===========================================================================================");
-                        writer.Close();
-                    }
-                    else
-                    {
-                        writer.WriteLine( "EXCEPTIONS OCCURED AS OF " + DateTime.Now );
-                        writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                        writer.WriteLine("Version: " + os.Version.ToString() );
-                        writer.WriteLine("  Major version: " + ver.Major);
-                        writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                        writer.WriteLine("  Minor version: " + ver.Minor);
-                        writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                        writer.WriteLine("  Build: " + ver.Build);
-                        writer.WriteLine("Platform: " + os.Platform.ToString() );
-                        writer.WriteLine("SP: " + os.ServicePack.ToString() );
-                        writer.WriteLine("Version String: " + os.VersionString.ToString() );
-                        writer.WriteLine("==========================================================================================");
-                        writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                        writer.WriteLine( e );
-                        writer.WriteLine("===========================================================================================");
-                        writer.Close();
-                    }
-
-                    Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
-                }
-
-                MessageBox.Show("An error has occured while trying to execute a function inside Beta Fortress Client\nAn exception log file has been created named "
-                    + @"""bfclient.BetaFortressTeam.exception.log""" + "\nPlease upload the mentioned file name to the developers!", 
-                    "Beta Fortress Client - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                HandleExceptionWithMessage(e, true);
             }
         }
 
