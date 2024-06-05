@@ -61,6 +61,25 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
             return false;
         }
+        
+        /// <summary>
+        /// guess who is the twins here
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsTheMfingTwinsBirthday()
+        {
+            DateTime dt = new DateTime();
+            if(dt.Day == 8 && dt.Month == 10)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsYourDickSmall()
+        {
+            return true;
+        }
 
         // todo -- idk when beta fortress was first started its development
         public static bool IsBetaFortressBirthday()
