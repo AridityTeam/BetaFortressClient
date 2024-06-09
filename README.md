@@ -1,6 +1,8 @@
 # BetaFortressClient
+[![ruh](https://github.com/AridityTeam/BetaFortressClient/actions/workflows/bfclient-win.yml/badge.svg)](https://github.com/AridityTeam/BetaFortressClient/actions/workflows/bfclient-win.yml)
+
 ## About Beta Fortress Client
-Beta Fortress Client is a .NET framework program for installing, updating, resetting and even uninstalling Beta Fortress.
+Beta Fortress Client is a .NET 8 program (originally based on .NET Framework) for installing, updating, resetting and even uninstalling Beta Fortress.
 
 ## NuGet packages/third-party code used
 [Squirrel.Windows](https://github.com/squirrel/Squirrel.Windows) \
@@ -15,7 +17,8 @@ Beta Fortress Client is a .NET framework program for installing, updating, reset
 **If NuGet packages are missing from the project, you might try to restore them**
 
 **STEP #1** \
-Clone the repository with Visual Studio or GitHub Desktop
+Clone the repository with Visual Studio or GitHub Desktop \
+(You can directly open the repository with Visual Studio and GitHub Desktop by pressing the ![Code button](code-button.png) button and then ![Open with GitHub Desktop button](open-with-github-desktop.png) or ![Open with Visual Studio button](open-with-visual-studio.png))
 
 **STEP #2** \
 Once the cloning process is done, open the directory of where you've cloned the source code and open the BetaFortressClient(.sln) solution
