@@ -91,6 +91,8 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             if(IsAprilFools())
             {
+                Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for AprilFools");
+
                 MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
                 MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
                 MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -130,14 +132,16 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
             else if ( IsChristmas() )
             {
+                Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for Christmas");
             }
             else if ( IsHalloween() )
             {
-
+                Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for Halloween");
             }
             else if ( IsPlaysBirthday() )
             {
                 // happy birthday! but idk what to add in bf client :(  
+                Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for PlaysBirthday");
             }
         }
     }
