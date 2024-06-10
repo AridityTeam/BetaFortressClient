@@ -16,7 +16,6 @@
 */
 
 using System;
-using System.Windows;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
 {
@@ -92,43 +91,6 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             if(IsAprilFools())
             {
                 Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for AprilFools");
-
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if ( IsChristmas() )
             {

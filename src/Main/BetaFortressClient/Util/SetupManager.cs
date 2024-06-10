@@ -17,9 +17,6 @@
 
 using System;
 using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using LibGit2Sharp;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
 {
