@@ -33,11 +33,6 @@
     <ApplicationIcon>bfclient.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Page Update="Startup\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Libraries\LibGit2Sharp\LibGit2Sharp.csproj" />
     <ProjectReference Include="..\BetaFortressTeam.BetaFortressClient\BetaFortressTeam.BetaFortressClient.csproj" />
   </ItemGroup>

@@ -15,7 +15,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.IO;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
@@ -29,23 +28,23 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         public static bool HasMissingModFiles()
         {
             string modPath = Steam.GetSourceModsPath + "/bf";
-            if(!Directory.Exists(modPath + "/bin"))
+            if (!Directory.Exists(modPath + "/bin"))
             {
                 return true;
             }
-            if(!Directory.Exists(modPath + "/materials"))
+            if (!Directory.Exists(modPath + "/materials"))
             {
                 return true;
             }
-            if(!Directory.Exists(modPath + "/scripts"))
+            if (!Directory.Exists(modPath + "/scripts"))
             {
                 return true;
             }
-            if(!Directory.Exists(modPath + "/sound"))
+            if (!Directory.Exists(modPath + "/sound"))
             {
                 return true;
             }
-            if(!File.Exists(modPath + "/gameinfo.txt"))
+            if (!File.Exists(modPath + "/gameinfo.txt"))
             {
                 return true;
             }

@@ -36,20 +36,21 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             get
             {
                 // please tell me a better workaround :(
-                try {
-                    foreach(string line in File.ReadAllLines("~/.steam/registry.vdf").AsEnumerable())
+                try
+                {
+                    foreach (string line in File.ReadAllLines("~/.steam/registry.vdf").AsEnumerable())
                     {
-                        if(line == "SteamPath")
+                        if (line == "SteamPath")
                         {
                             return line;
                         }
-                        else 
+                        else
                         {
                             return null;
                         }
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return null;
                 }
@@ -65,20 +66,21 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             get
             {
                 // please tell me a better workaround :(
-                try {
-                    foreach(string line in File.ReadAllLines("~/.steam/registry.vdf").AsEnumerable())
+                try
+                {
+                    foreach (string line in File.ReadAllLines("~/.steam/registry.vdf").AsEnumerable())
                     {
-                        if(line == "SourceModInstallPath")
+                        if (line == "SourceModInstallPath")
                         {
                             return line;
                         }
-                        else 
+                        else
                         {
                             return null;
                         }
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return null;
                 }
@@ -93,7 +95,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             get
             {
-                if(Directory.Exists(GetSteamPath + "/steamapps/common"))
+                if (Directory.Exists(GetSteamPath + "/steamapps/common"))
                 {
                     return GetSteamPath + "/steamapps/common";
                 }
@@ -108,7 +110,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             get
             {
-                if(Directory.Exists(GetSteamPath))
+                if (Directory.Exists(GetSteamPath))
                 {
                     return true;
                 }
@@ -124,7 +126,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public static bool IsAppInstalled( int appId )
+        public static bool IsAppInstalled(int appId)
         {
             return false;
         }
@@ -137,7 +139,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public static bool IsAppUpdating( int appId )
+        public static bool IsAppUpdating(int appId)
         {
             return false;
         }
@@ -151,7 +153,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public static bool IsAppRunning( int appId )
+        public static bool IsAppRunning(int appId)
         {
             return false;
         }
@@ -160,7 +162,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// Runs a specific app ID
         /// </summary>
         /// <param name="appId"></param>
-        public static void RunApp( int appId )
+        public static void RunApp(int appId)
         {
             Process p = new Process();
             p.StartInfo.FileName = "/usr/bin/steam";
@@ -174,7 +176,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="args"></param>
-        public static void RunApp( int appId, string args )
+        public static void RunApp(int appId, string args)
         {
             Process p = new Process();
             p.StartInfo.FileName = "/usr/bin/steam";
