@@ -28,7 +28,7 @@ jobs:
     # run: dotnet test --no-build --verbosity normal
     - name: Pack
       shell: bash
-      run: tar cJfv build-rel-BFClient-net8.0-Windows.tar.xz game
+      run: tar cJfv build-rel-BFClient-net8.0-Windows.tar.xz bin
 
     - name: Upload product
       uses: actions/upload-artifact@v2
