@@ -104,6 +104,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
 
         static void HandleException(Exception ex)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
             Console.WriteLine(ex);
             Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
@@ -154,8 +155,8 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 }
 
                 Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
-                Console.WriteLine("[ BFCLIENT ] Closing...");
-                return;
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Gui.MessageEnd("Press any key to exit", 1);
             }
         }
 
@@ -174,7 +175,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
         static void RunInteractive()
         {
             Gui.Message("Welcome to Beta Fortress Client aka a knockoff of TF2CDownloader in .NET!", 0);
-            Gui.Message("You are in version" + Assembly.GetExecutingAssembly().GetName().Version, 0);
+            Gui.Message("You are in version " + Assembly.GetExecutingAssembly().GetName().Version, 0);
             Gui.Message("[ 1 ] Install / Update Beta Fortress\n" +
                         "[ 2 ] Configure for server hosting\n" +
                         "[ 3 ] Uninstall Beta Fortress\n" +
@@ -192,10 +193,19 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     {
                         ModManager.InstallMod(Steam.GetSourceModsPath + "/bf");
                     }
+                    if(Gui.MessageYesNo("Do you want to go back to the menu?"))
+                    {
+                        Console.Clear();
+                        RunInteractive();
+                    }
+                    else
+                    {
+                        Gui.MessageEnd("User selected to exit the utility", 0);
+                    }
                 }
                 else if(input == "2")
                 {
-                    Gui.Message("Coming soon!", 0);
+                    Gui.MessageInput("Coming soon!");
                     Console.Clear();
                     RunInteractive();
                 }

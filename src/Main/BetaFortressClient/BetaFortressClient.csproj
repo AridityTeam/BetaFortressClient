@@ -85,8 +85,8 @@
     <Company>The Aridity Team</Company>
     <Product>Beta Fortress Client</Product>
     <Copyright>Copyright © 2024 Beta Fortress Team. All rights reserved</Copyright>
-    <AssemblyVersion>05.0657.45.32</AssemblyVersion>
-    <FileVersion>05.0657.45.32</FileVersion>
+    <AssemblyVersion>05.0694.51.32</AssemblyVersion>
+    <FileVersion>05.0694.51.32</FileVersion>
     <PlatformTarget>x64</PlatformTarget>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <SignAssembly>False</SignAssembly>
