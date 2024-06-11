@@ -15,7 +15,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.IO;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
@@ -36,7 +35,8 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             get
             {
-                if(Directory.Exists(ModPath)) {
+                if (Directory.Exists(ModPath))
+                {
                     return true;
                 }
                 return false;

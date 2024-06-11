@@ -16,7 +16,6 @@
 */
 
 using System;
-using System.Windows;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
 {
@@ -25,7 +24,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         public static bool IsAprilFools()
         {
             DateTime dt = new DateTime();
-            if(dt.Day == 1 && dt.Month == 4)
+            if (dt.Day == 1 && dt.Month == 4)
             {
                 return true;
             }
@@ -35,33 +34,33 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         public static bool IsChristmas()
         {
             DateTime dt = new DateTime();
-            if(dt.Day == 25 && dt.Month == 12)
+            if (dt.Day == 25 && dt.Month == 12)
             {
                 return true;
             }
             return false;
         }
-        
+
         public static bool IsHalloween()
         {
             DateTime dt = new DateTime();
-            if(dt.Day == 31 && dt.Month == 10)
+            if (dt.Day == 31 && dt.Month == 10)
             {
                 return true;
             }
             return false;
         }
-        
+
         public static bool IsPlaysBirthday()
         {
             DateTime dt = new DateTime();
-            if(dt.Day == 15 && dt.Month == 12)
+            if (dt.Day == 15 && dt.Month == 12)
             {
                 return true;
             }
             return false;
         }
-        
+
         /// <summary>
         /// guess who is the twins here
         /// </summary>
@@ -69,7 +68,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         public static bool IsTheMfingTwinsBirthday()
         {
             DateTime dt = new DateTime();
-            if(dt.Day == 8 && dt.Month == 10)
+            if (dt.Day == 8 && dt.Month == 10)
             {
                 return true;
             }
@@ -89,56 +88,19 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
         public static void DoHolidayAction()
         {
-            if(IsAprilFools())
+            if (IsAprilFools())
             {
                 Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for AprilFools");
-
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show("mofo forgot to fix a bug, pls contact the devs", "error lol", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if ( IsChristmas() )
+            else if (IsChristmas())
             {
                 Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for Christmas");
             }
-            else if ( IsHalloween() )
+            else if (IsHalloween())
             {
                 Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for Halloween");
             }
-            else if ( IsPlaysBirthday() )
+            else if (IsPlaysBirthday())
             {
                 // happy birthday! but idk what to add in bf client :(  
                 Console.WriteLine("[ BFCLIENT HOLIDAY MANAGER ]: Executing holiday action for PlaysBirthday");

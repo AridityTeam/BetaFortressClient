@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>BetaFortressTeam.BetaFortressClient</RootNamespace>
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <UseWindowsForms>True</UseWindowsForms>
@@ -32,11 +32,6 @@
   <PropertyGroup>
     <ApplicationIcon>bfclient.ico</ApplicationIcon>
   </PropertyGroup>
-  <ItemGroup>
-    <Page Update="Startup\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\LibGit2Sharp\LibGit2Sharp.csproj" />
     <ProjectReference Include="..\BetaFortressTeam.BetaFortressClient\BetaFortressTeam.BetaFortressClient.csproj" />
