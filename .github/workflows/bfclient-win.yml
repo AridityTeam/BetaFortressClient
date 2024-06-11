@@ -26,3 +26,12 @@ jobs:
       run: dotnet build --no-restore
     #- name: Test
     # run: dotnet test --no-build --verbosity normal
+    - name: Pack
+      shell: bash
+      run: tar cJfv build-rel-BFClient-net8.0-Windows.tar.xz game
+
+    - name: Upload product
+      uses: actions/upload-artifact@v2
+      with:
+          name: Beta Fortress Client - .NET 8.0 (Windows)
+          path: build-rel-BFClient-net8.0-Windows.tar.xz
