@@ -24,11 +24,18 @@
 using System;
 using System.Linq;
 using System.IO;
+<<<<<<< Updated upstream
 #if HAS_SETUP
 using Microsoft.Win32;
 #endif
 //using System.Net.Http;
 //using System.Threading.Tasks;
+=======
+using System.Reflection;
+#if WINDOWS
+using System.Security.Principal;
+#endif
+>>>>>>> Stashed changes
 
 // BF Client-specific namespaces
 using BetaFortressTeam.BetaFortressClient.Util;
@@ -48,18 +55,51 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             get { return commandLineArgs; }
         }
 
+<<<<<<< Updated upstream
+=======
+#if WINDOWS
+        private static bool IsElevated()
+        {
+            using (var identity = WindowsIdentity.GetCurrent())
+            {
+                var principal = new WindowsPrincipal(identity);
+
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+        }
+#endif
+
+>>>>>>> Stashed changes
         [STAThread()]
         public static void Main(string[] args)
         {
             Console.WriteLine("[ BFCLIENT ] Starting up...");
             commandLineArgs = args;
 
+<<<<<<< Updated upstream
+=======
+#if WINDOWS
+            Console.WriteLine("[ BFCLIENT ] Checking if Steam is installed...");
+            if (!Steam.IsSteamInstalled)
+            {
+                SteamSetupPath = Environment.ProcessPath + "/temp/" + Path.GetRandomFileName();
+                SteamSetupExe = SteamSetupPath + "/SteamSetup.exe";
+
+                if (!Directory.Exists(SteamSetupPath))
+                {
+                    Directory.CreateDirectory(SteamSetupPath);
+                }
+            }
+#endif
+
+>>>>>>> Stashed changes
             if (/* better workaround */ Steam.IsSteamInstalled /*Directory.Exists(Steam.GetSteamPath)*/)
             {
                 Console.WriteLine("[ BFCLIENT ] Steam is already installed");
             }
             else
             {
+<<<<<<< Updated upstream
                 Console.WriteLine("[ BFCLIENT ] Could not find Steam! Assuming that Steam is not installed.");
                 Console.WriteLine("[ BFCLIENT ] Quitting.");
                 return;
@@ -68,6 +108,43 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             try
             {
                 Run();
+=======
+                Console.WriteLine("[ BFCLIENT ] Could not find Steam! Assuming Steam is not installed.");
+                return;
+            }
+
+#if HAS_SETUP
+            // wacky workaround
+            if(!File.Exists("./configuration/BFClientConfig.cfg") || Properties.BFClientAppSettings.Default.FirstRun == true)
+            {
+                SetupManager.HasCompletedSetup = false;
+            }
+            else
+            {
+                SetupManager.HasCompletedSetup = false;
+            }
+#endif
+
+            try
+            {
+                if (!commandLineArgs.Contains("/console"))
+                {
+                    Run();
+                }
+                else
+                {
+                    if (commandLineArgs.Contains("/help"))
+                    {
+                        Console.WriteLine("Beta Fortress Client v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "\n" +
+                                          "Usage: BetaFortressClient.exe /console [args]\n" +
+                                          "/help - show this help text\n" +
+                                          "/doNotAllocConsole - do not alloc the console" +
+                                          "/initializeGui - init the gui even with the console" +
+                                          "/uninstall - uninstalls the mod");
+                        Console.ReadKey();
+                    }
+                }
+>>>>>>> Stashed changes
             }
             catch (Exception e)
             {
@@ -85,6 +162,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             {
                 OperatingSystem os = Environment.OSVersion;
                 Version ver = os.Version;
+<<<<<<< Updated upstream
 
                 if (commandLineArgs.Contains("/console"))
                 {
@@ -132,6 +210,55 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
         }
 
+=======
+
+                if (commandLineArgs.Contains("/console"))
+                {
+                    writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                    writer.WriteLine("NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now);
+                    writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                    writer.WriteLine("Version: " + os.Version.ToString());
+                    writer.WriteLine("  Major version: " + ver.Major);
+                    writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                    writer.WriteLine("  Minor version: " + ver.Minor);
+                    writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                    writer.WriteLine("  Build: " + ver.Build);
+                    writer.WriteLine("Platform: " + os.Platform.ToString());
+                    writer.WriteLine("SP: " + os.ServicePack.ToString());
+                    writer.WriteLine("Version String: " + os.VersionString.ToString());
+                    writer.WriteLine("==========================================================================================");
+                    writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                    writer.WriteLine(ex);
+                    writer.WriteLine("===========================================================================================");
+                    writer.Close();
+                }
+                else
+                {
+                    writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
+                    writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
+                    writer.WriteLine("Version: " + os.Version.ToString());
+                    writer.WriteLine("  Major version: " + ver.Major);
+                    writer.WriteLine("  Major revision: " + ver.MajorRevision);
+                    writer.WriteLine("  Minor version: " + ver.Minor);
+                    writer.WriteLine("  Minor revision: " + ver.MinorRevision);
+                    writer.WriteLine("  Build: " + ver.Build);
+                    writer.WriteLine("Platform: " + os.Platform.ToString());
+                    writer.WriteLine("SP: " + os.ServicePack.ToString());
+                    writer.WriteLine("Version String: " + os.VersionString.ToString());
+                    writer.WriteLine("==========================================================================================");
+                    writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
+                    writer.WriteLine(ex);
+                    writer.WriteLine("===========================================================================================");
+                    writer.Close();
+                }
+
+                Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
+                Console.WriteLine("[ BFCLIENT ] Closing...");
+                return;
+            }
+        }
+
+>>>>>>> Stashed changes
         static void HandleExceptionWithMessage(Exception ex, bool showMessage)
         {
             Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
@@ -190,6 +317,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
 
         static void Run()
         {
+<<<<<<< Updated upstream
             try
             {
                 InitInteractive();
@@ -228,6 +356,69 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 Console.ReadKey();
 
                 InitInteractive();
+=======
+
+            try
+            {
+
+                if (!commandLineArgs.Contains("/disableHolidayManager"))
+                {
+                    // do an action
+                    HolidayManager.DoHolidayAction();
+                }
+
+                RunInteractive();
+            }
+            finally
+            {
+                Console.WriteLine("[ BFCLIENT ] Leaving function: Run()");
+            }
+        }
+
+        static void RunInteractive()
+        {
+            Gui.Message("Welcome to Beta Fortress Client aka a knockoff of TF2CDownloader in .NET!", 0);
+            Gui.Message("You are in version" + Assembly.GetExecutingAssembly().GetName().Version, 0);
+            Gui.Message("[ 1 ] Install / Update Beta Fortress\n" +
+                        "[ 2 ] Configure for server hosting\n" +
+                        "[ 3 ] Uninstall Beta Fortress\n" +
+                        "[ 4 ] Quit\n", 0);
+            string input = Gui.MessageInput("Choose your option: ");
+            if(input != null) 
+            {
+                if(input == "1")
+                {
+                    if(ModManager.IsModInstalled)
+                    {
+                        // update
+                    }
+                    else
+                    {
+                        ModManager.InstallMod(Steam.GetSourceModsPath + "/bf");
+                    }
+                }
+                else if(input == "2")
+                {
+                    Gui.Message("Coming soon!", 0);
+                    Console.Clear();
+                    RunInteractive();
+                }
+                else if(input == "3")
+                {
+                    if (Gui.MessageYesNo("This will remove your current configurations and current custom mods/addons for Beta Fortress. Are you sure?"))
+                    {
+                        Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
+                    }
+                }
+                else if(input == "4")
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Gui.MessageEnd("Please enter 1, 2, 3 or 4.", 1);
+                }
+>>>>>>> Stashed changes
             }
         }
     }

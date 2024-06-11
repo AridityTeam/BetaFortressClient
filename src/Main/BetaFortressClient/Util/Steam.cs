@@ -15,10 +15,13 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
+using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
+<<<<<<< Updated upstream
 using System.Linq;
+=======
+>>>>>>> Stashed changes
 
 namespace BetaFortressTeam.BetaFortressClient.Util
 {
@@ -35,10 +38,22 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             get
             {
+<<<<<<< Updated upstream
                 // please tell me a better workaround :(
                 try
                 {
                     foreach (string line in File.ReadAllLines("~/.steam/registry.vdf").AsEnumerable())
+=======
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam");
+                if (key != null)
+                {
+                    // make sure the path actually exists before returning the value
+                    if (Directory.Exists(key.GetValue("SteamPath").ToString()))
+                    {
+                        return key.GetValue("SteamPath").ToString();
+                    }
+                    else
+>>>>>>> Stashed changes
                     {
                         if (line == "SteamPath")
                         {
@@ -65,10 +80,22 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             get
             {
+<<<<<<< Updated upstream
                 // please tell me a better workaround :(
                 try
                 {
                     foreach (string line in File.ReadAllLines("~/.steam/registry.vdf").AsEnumerable())
+=======
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam");
+                if (key != null)
+                {
+                    // make sure the path actually exists before returning the value
+                    if (Directory.Exists(key.GetValue("SourceModInstallPath").ToString()))
+                    {
+                        return key.GetValue("SourceModInstallPath").ToString();
+                    }
+                    else
+>>>>>>> Stashed changes
                     {
                         if (line == "SourceModInstallPath")
                         {
@@ -110,10 +137,26 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             get
             {
+<<<<<<< Updated upstream
                 if (Directory.Exists(GetSteamPath))
                 {
                     return true;
                 }
+=======
+                // use the registry keys
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam");
+                if (key != null)
+                {
+                    return true;
+                }
+
+                // or check if the installation path exists
+                if (Directory.Exists(GetSteamPath))
+                {
+                    return true;
+                }
+
+>>>>>>> Stashed changes
                 return false;
             }
         }
@@ -128,7 +171,27 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// <returns></returns>
         public static bool IsAppInstalled(int appId)
         {
+<<<<<<< Updated upstream
             return false;
+=======
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam\Apps\" + appId);
+            if (key != null)
+            {
+                // make sure the path actually exists before returning the value
+                if (key.GetValue("Installed").ToString() == "1")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+>>>>>>> Stashed changes
         }
 
         /// <summary>
@@ -141,7 +204,27 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// <returns></returns>
         public static bool IsAppUpdating(int appId)
         {
+<<<<<<< Updated upstream
             return false;
+=======
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam\Apps\" + appId);
+            if (key != null)
+            {
+                // make sure the path actually exists before returning the value
+                if (key.GetValue("Updating").ToString() == "1")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+>>>>>>> Stashed changes
         }
 
         // note -- for source engine games: use a mutex instead but this is another workaround
@@ -155,7 +238,26 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         /// <returns></returns>
         public static bool IsAppRunning(int appId)
         {
+<<<<<<< Updated upstream
             return false;
+=======
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Valve\Steam" + appId);
+            if (key != null)
+            {
+                if (key.GetValue("RunningAppID").ToString() == $"{appId}")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+>>>>>>> Stashed changes
         }
 
         /// <summary>

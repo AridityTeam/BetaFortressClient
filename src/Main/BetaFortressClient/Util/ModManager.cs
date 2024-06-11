@@ -15,7 +15,14 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+<<<<<<< Updated upstream
+=======
+using LibGit2Sharp;
+using LibGit2Sharp.Handlers;
+using System;
+>>>>>>> Stashed changes
 using System.IO;
+using System.Threading.Tasks;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
 {
@@ -68,6 +75,41 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             {
                 writer.Write(config);
             }
+        }
+
+        public static async void InstallMod(string modPath)
+        {
+            var gitProgress = new ProgressHandler((serverProgressOutput) =>
+            {
+                // Print output to console
+                Console.Write(serverProgressOutput);
+                return true;
+            });
+
+            if (!Directory.Exists(Steam.GetSourceModsPath + "/bf"))
+            {
+                CloneOptions cloneOptions = new CloneOptions();
+                cloneOptions.FetchOptions.OnTransferProgress = TransferProgress;
+                cloneOptions.FetchOptions.Depth = 1;
+                cloneOptions.FetchOptions.OnProgress = gitProgress;
+
+                var x = await Task.Run(() => Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", Steam.GetSourceModsPath + "/bf", cloneOptions));
+
+                if (SetupManager.HasMissingModFiles())
+                {
+                    if(Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
+                        "Do you want to reinstall?"))
+                    {
+                        Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
+                    }
+                }
+            }
+        }
+
+        public static bool TransferProgress(TransferProgress progress)
+        {
+            Console.WriteLine($"Objects: {progress.ReceivedObjects} of {progress.TotalObjects}, Bytes: {progress.ReceivedBytes}");
+            return true;
         }
     }
 
