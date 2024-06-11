@@ -24,18 +24,10 @@
 using System;
 using System.Linq;
 using System.IO;
-<<<<<<< Updated upstream
-#if HAS_SETUP
-using Microsoft.Win32;
-#endif
-//using System.Net.Http;
-//using System.Threading.Tasks;
-=======
 using System.Reflection;
 #if WINDOWS
 using System.Security.Principal;
 #endif
->>>>>>> Stashed changes
 
 // BF Client-specific namespaces
 using BetaFortressTeam.BetaFortressClient.Util;
@@ -55,8 +47,6 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             get { return commandLineArgs; }
         }
 
-<<<<<<< Updated upstream
-=======
 #if WINDOWS
         private static bool IsElevated()
         {
@@ -69,15 +59,12 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
         }
 #endif
 
->>>>>>> Stashed changes
         [STAThread()]
         public static void Main(string[] args)
         {
             Console.WriteLine("[ BFCLIENT ] Starting up...");
             commandLineArgs = args;
 
-<<<<<<< Updated upstream
-=======
 #if WINDOWS
             Console.WriteLine("[ BFCLIENT ] Checking if Steam is installed...");
             if (!Steam.IsSteamInstalled)
@@ -92,14 +79,12 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
 #endif
 
->>>>>>> Stashed changes
             if (/* better workaround */ Steam.IsSteamInstalled /*Directory.Exists(Steam.GetSteamPath)*/)
             {
                 Console.WriteLine("[ BFCLIENT ] Steam is already installed");
             }
             else
             {
-<<<<<<< Updated upstream
                 Console.WriteLine("[ BFCLIENT ] Could not find Steam! Assuming that Steam is not installed.");
                 Console.WriteLine("[ BFCLIENT ] Quitting.");
                 return;
@@ -108,47 +93,12 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             try
             {
                 Run();
-=======
                 Console.WriteLine("[ BFCLIENT ] Could not find Steam! Assuming Steam is not installed.");
                 return;
             }
-
-#if HAS_SETUP
-            // wacky workaround
-            if(!File.Exists("./configuration/BFClientConfig.cfg") || Properties.BFClientAppSettings.Default.FirstRun == true)
-            {
-                SetupManager.HasCompletedSetup = false;
-            }
-            else
-            {
-                SetupManager.HasCompletedSetup = false;
-            }
-#endif
-
-            try
-            {
-                if (!commandLineArgs.Contains("/console"))
-                {
-                    Run();
-                }
-                else
-                {
-                    if (commandLineArgs.Contains("/help"))
-                    {
-                        Console.WriteLine("Beta Fortress Client v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "\n" +
-                                          "Usage: BetaFortressClient.exe /console [args]\n" +
-                                          "/help - show this help text\n" +
-                                          "/doNotAllocConsole - do not alloc the console" +
-                                          "/initializeGui - init the gui even with the console" +
-                                          "/uninstall - uninstalls the mod");
-                        Console.ReadKey();
-                    }
-                }
->>>>>>> Stashed changes
-            }
             catch (Exception e)
             {
-                HandleExceptionWithMessage(e, true);
+                HandleException(e);
             }
         }
 
@@ -162,7 +112,6 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             {
                 OperatingSystem os = Environment.OSVersion;
                 Version ver = os.Version;
-<<<<<<< Updated upstream
 
                 if (commandLineArgs.Contains("/console"))
                 {
@@ -207,171 +156,18 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
                 Console.WriteLine("[ BFCLIENT ] Closing...");
                 return;
-            }
-        }
-
-=======
-
-                if (commandLineArgs.Contains("/console"))
-                {
-                    writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
-                    writer.WriteLine("NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now);
-                    writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                    writer.WriteLine("Version: " + os.Version.ToString());
-                    writer.WriteLine("  Major version: " + ver.Major);
-                    writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                    writer.WriteLine("  Minor version: " + ver.Minor);
-                    writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                    writer.WriteLine("  Build: " + ver.Build);
-                    writer.WriteLine("Platform: " + os.Platform.ToString());
-                    writer.WriteLine("SP: " + os.ServicePack.ToString());
-                    writer.WriteLine("Version String: " + os.VersionString.ToString());
-                    writer.WriteLine("==========================================================================================");
-                    writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                    writer.WriteLine(ex);
-                    writer.WriteLine("===========================================================================================");
-                    writer.Close();
-                }
-                else
-                {
-                    writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
-                    writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                    writer.WriteLine("Version: " + os.Version.ToString());
-                    writer.WriteLine("  Major version: " + ver.Major);
-                    writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                    writer.WriteLine("  Minor version: " + ver.Minor);
-                    writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                    writer.WriteLine("  Build: " + ver.Build);
-                    writer.WriteLine("Platform: " + os.Platform.ToString());
-                    writer.WriteLine("SP: " + os.ServicePack.ToString());
-                    writer.WriteLine("Version String: " + os.VersionString.ToString());
-                    writer.WriteLine("==========================================================================================");
-                    writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                    writer.WriteLine(ex);
-                    writer.WriteLine("===========================================================================================");
-                    writer.Close();
-                }
-
-                Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
-                Console.WriteLine("[ BFCLIENT ] Closing...");
-                return;
-            }
-        }
-
->>>>>>> Stashed changes
-        static void HandleExceptionWithMessage(Exception ex, bool showMessage)
-        {
-            Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Exception has occured!!");
-            Console.WriteLine(ex);
-            Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Writing log...");
-
-            using (StreamWriter writer = new StreamWriter("./bfclient.BetaFortressTeam" + ".exception.log"))
-            {
-                OperatingSystem os = Environment.OSVersion;
-                Version ver = os.Version;
-
-                if (commandLineArgs.Contains("/console"))
-                {
-                    writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
-                    writer.WriteLine("NOTE!!!!!: INSTANCE IS IN CONSOLE MODE AS OF " + DateTime.Now);
-                    writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                    writer.WriteLine("Version: " + os.Version.ToString());
-                    writer.WriteLine("  Major version: " + ver.Major);
-                    writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                    writer.WriteLine("  Minor version: " + ver.Minor);
-                    writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                    writer.WriteLine("  Build: " + ver.Build);
-                    writer.WriteLine("Platform: " + os.Platform.ToString());
-                    writer.WriteLine("SP: " + os.ServicePack.ToString());
-                    writer.WriteLine("Version String: " + os.VersionString.ToString());
-                    writer.WriteLine("==========================================================================================");
-                    writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                    writer.WriteLine(ex);
-                    writer.WriteLine("===========================================================================================");
-                    writer.Close();
-                }
-                else
-                {
-                    writer.WriteLine("EXCEPTIONS OCCURED AS OF " + DateTime.Now);
-                    writer.WriteLine("=================================== OS VERSION DETAILS ===================================");
-                    writer.WriteLine("Version: " + os.Version.ToString());
-                    writer.WriteLine("  Major version: " + ver.Major);
-                    writer.WriteLine("  Major revision: " + ver.MajorRevision);
-                    writer.WriteLine("  Minor version: " + ver.Minor);
-                    writer.WriteLine("  Minor revision: " + ver.MinorRevision);
-                    writer.WriteLine("  Build: " + ver.Build);
-                    writer.WriteLine("Platform: " + os.Platform.ToString());
-                    writer.WriteLine("SP: " + os.ServicePack.ToString());
-                    writer.WriteLine("Version String: " + os.VersionString.ToString());
-                    writer.WriteLine("==========================================================================================");
-                    writer.WriteLine("==================================== EXCEPTION DETAILS ====================================");
-                    writer.WriteLine(ex);
-                    writer.WriteLine("===========================================================================================");
-                    writer.Close();
-                }
-
-                Console.WriteLine("[ BFCLIENT EXCEPTION HANDLER ] Successfully writted the log file.");
-                Console.WriteLine("[ BFCLIENT ] Closing...");
             }
         }
 
         static void Run()
         {
-<<<<<<< Updated upstream
             try
             {
-                InitInteractive();
-            }
-            finally
-            {
-                Console.WriteLine("[ BFCLIENT ] Leaving function: Run(string[] args) ");
-            }
-        }
-
-        static void InitInteractive()
-        {
-            Console.WriteLine("******* WELCOME TO BETA FORTRESS CLIENT ******");
-            Console.WriteLine("************* SELECT YOUR OPTION *************");
-            Console.WriteLine("[ 1 ] Install / Update\n" +
-                              "[ 2 ] Configure for server hosting\n" +
-                              "[ 3 ] Uninstall\n" +
-                              "[ 4 ] Exit");
-            string choice = Console.ReadLine();
-            if (choice == "1")
-            {
-                if(ModManager.IsModInstalled)
-                {
-                    Console.WriteLine("Mod is already installed, updating...");
-                }
-                else
-                {
-                    Console.WriteLine("Installing Beta Fortress...");
-                    
-                }
-            }
-            else
-            {
-                Console.WriteLine("Please enter 1, 2, 3 or 4.");
-                Console.WriteLine("Press any key to continue . . .");
-                Console.ReadKey();
-
-                InitInteractive();
-=======
-
-            try
-            {
-
-                if (!commandLineArgs.Contains("/disableHolidayManager"))
-                {
-                    // do an action
-                    HolidayManager.DoHolidayAction();
-                }
-
                 RunInteractive();
             }
             finally
             {
-                Console.WriteLine("[ BFCLIENT ] Leaving function: Run()");
+                Console.WriteLine("[ BFCLIENT ] Leaving function: Run(string[] args) ");
             }
         }
 
@@ -418,7 +214,6 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 {
                     Gui.MessageEnd("Please enter 1, 2, 3 or 4.", 1);
                 }
->>>>>>> Stashed changes
             }
         }
     }

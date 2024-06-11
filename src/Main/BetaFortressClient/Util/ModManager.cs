@@ -15,12 +15,9 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-<<<<<<< Updated upstream
-=======
 using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using System;
->>>>>>> Stashed changes
 using System.IO;
 using System.Threading.Tasks;
 
@@ -97,7 +94,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
                 if (SetupManager.HasMissingModFiles())
                 {
-                    if(Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
+                    if (Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
                         "Do you want to reinstall?"))
                     {
                         Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
