@@ -28,6 +28,7 @@ using System.Reflection;
 #if WINDOWS
 using System.Security.Principal;
 #endif
+using System.Threading.Tasks;
 
 // BF Client-specific namespaces
 using BetaFortressTeam.BetaFortressClient.Util;
@@ -176,6 +177,27 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
         {
             Gui.Message("Welcome to Beta Fortress Client aka a knockoff of TF2CDownloader in .NET!", 0);
             Gui.Message("You are in version " + Assembly.GetExecutingAssembly().GetName().Version, 0);
+            if(File.Exists(ModManager.GetModPath + "/gameinfo.txt"))
+            {
+                string gameInfoContent = File.ReadAllText(ModManager.GetModPath + "/gameinfo.txt");
+                Gui.Message(gameInfoContent, 1);
+                var gameInfo = ModManager.ExtractGameInfo(gameInfoContent);
+
+                if(gameInfo.steamAppId != 243750)
+                {
+                    Gui.Message("Log:", 0);
+                    Gui.Message("Warning: Beta Fortress's Steam App ID value in gameinfo.txt differ from 243750\nCurrent App ID is: " + gameInfo.steamAppId + "\n", 0);
+                    Console.WriteLine("============================================================================\n");
+                }
+
+                if(gameInfo.NoModels != 1)
+                {
+                    Gui.Message("Log:", 0);
+                    Gui.Message("Warning: Beta Fortress's Steam App ID value in gameinfo.txt differ from 243750\nCurrent App ID is: " + gameInfo.NoModels + "\n", 0);
+                    Console.WriteLine("============================================================================\n");
+                }
+
+            }
             Gui.Message("[ 1 ] Install / Update Beta Fortress\n" +
                         "[ 2 ] Configure for server hosting\n" +
                         "[ 3 ] Uninstall Beta Fortress\n" +
@@ -188,19 +210,29 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     if(ModManager.IsModInstalled)
                     {
                         // update
+                        if(Gui.MessageYesNo("Do you want to go back to the menu?"))
+                        {
+                            Console.Clear();
+                            RunInteractive();
+                        }
+                        else
+                        {
+                            Gui.MessageEnd("User selected to exit the utility", 0);
+                        }
                     }
                     else
                     {
-                        ModManager.InstallMod(Steam.GetSourceModsPath + "/bf");
-                    }
-                    if(Gui.MessageYesNo("Do you want to go back to the menu?"))
-                    {
-                        Console.Clear();
-                        RunInteractive();
-                    }
-                    else
-                    {
-                        Gui.MessageEnd("User selected to exit the utility", 0);
+                        Task.Run(async() => await ModManager.InstallMod(Steam.GetSourceModsPath + "/bf"));
+
+                        if(Gui.MessageYesNo("Do you want to go back to the menu?"))
+                        {
+                            Console.Clear();
+                            RunInteractive();
+                        }
+                        else
+                        {
+                            Gui.MessageEnd("User selected to exit the utility", 0);
+                        }
                     }
                 }
                 else if(input == "2")

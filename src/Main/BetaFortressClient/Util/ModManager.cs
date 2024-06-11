@@ -19,6 +19,7 @@ using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
@@ -74,8 +75,9 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
         }
 
-        public static async void InstallMod(string modPath)
+        public static async Task InstallMod(string modPath)
         {
+            Console.Clear();
             var gitProgress = new ProgressHandler((serverProgressOutput) =>
             {
                 // Print output to console
@@ -107,6 +109,76 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             Console.WriteLine($"Objects: {progress.ReceivedObjects} of {progress.TotalObjects}, Bytes: {progress.ReceivedBytes}");
             return true;
+        }
+
+        // thanks YourLocalMoon!
+        public static (string Name, string Type, int NoModels, int NoHiModel, int NoCrosshair, string Developer, string DeveloperUrl, string Manual, int steamAppId) ExtractGameInfo(string gameInfoContent)
+        {
+            string name = null;
+            string type = null;
+            int noModels = 0;
+            int noHiModel = 0;
+            int noCrosshair = 0;
+            string developer = "Unknown";
+            string developerUrl = "None";
+            string manual = "None";
+            int steamAppId = 0;
+
+            var nameMatch = Regex.Match(gameInfoContent, @"\bgame\s+(.+)", RegexOptions.IgnoreCase);
+            if (nameMatch.Success && nameMatch.Groups.Count > 1)
+            {
+                name = nameMatch.Groups[1].Value.Replace("\"", "").Trim();
+            }
+
+            var typeMatch = Regex.Match(gameInfoContent, @"\btype\s+(.+)", RegexOptions.IgnoreCase);
+            if (typeMatch.Success && typeMatch.Groups.Count > 1)
+            {
+                type = typeMatch.Groups[1].Value.Trim();
+            }
+
+            var noModelsMatch = Regex.Match(gameInfoContent, @"\bnomodels\s+(\d+)", RegexOptions.IgnoreCase);
+            if (noModelsMatch.Success && noModelsMatch.Groups.Count > 1)
+            {
+                noModels = int.Parse(noModelsMatch.Groups[1].Value.Trim());
+            }
+
+            var noHiModelMatch = Regex.Match(gameInfoContent, @"\bnohimodel\s+(\d+)", RegexOptions.IgnoreCase);
+            if (noHiModelMatch.Success && noHiModelMatch.Groups.Count > 1)
+            {
+                noHiModel = int.Parse(noHiModelMatch.Groups[1].Value.Trim());
+            }
+
+            var noCrosshairMatch = Regex.Match(gameInfoContent, @"\bnocrosshair\s+(\d+)", RegexOptions.IgnoreCase);
+            if (noCrosshairMatch.Success && noCrosshairMatch.Groups.Count > 1)
+            {
+                noCrosshair = int.Parse(noCrosshairMatch.Groups[1].Value.Trim());
+            }
+
+            var developerMatch = Regex.Match(gameInfoContent, @"\bdeveloper\s+""(.+)""", RegexOptions.IgnoreCase);
+            if (developerMatch.Success && developerMatch.Groups.Count > 1)
+            {
+                developer = developerMatch.Groups[1].Value.Trim();
+            }
+
+            var developerUrlMatch = Regex.Match(gameInfoContent, @"\bdeveloper_url\s+""(.+)""", RegexOptions.IgnoreCase);
+            if (developerUrlMatch.Success && developerUrlMatch.Groups.Count > 1)
+            {
+                developerUrl = developerUrlMatch.Groups[1].Value.Trim();
+            }
+
+            var manualMatch = Regex.Match(gameInfoContent, @"\bmanual\s+""(.+)""", RegexOptions.IgnoreCase);
+            if (manualMatch.Success && manualMatch.Groups.Count > 1)
+            {
+                manual = manualMatch.Groups[1].Value.Trim();
+            }
+
+            var appIdMatch = Regex.Match(gameInfoContent, @"\bSteamAppId\s+(\d+)", RegexOptions.IgnoreCase);
+            if(appIdMatch.Success && manualMatch.Groups.Count > 1)
+            {
+                steamAppId = int.Parse(manualMatch.Groups[1].Value.Trim());
+            }
+
+            return (name, type, noModels, noHiModel, noCrosshair, developer, developerUrl, manual, steamAppId);
         }
     }
 
