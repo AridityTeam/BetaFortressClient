@@ -23,6 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetaFortressTeam.BetaFortre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetaFortressClient", "src\Main\BetaFortressClient\BetaFortressClient.csproj", "{13FA30B0-D38D-4A64-8A81-9A6F5921F1C5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{F7B7DA3D-2A11-490F-AAFC-9E95C95CEDF6}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\bfclient-win.yml = .github\workflows\bfclient-win.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,18 +74,6 @@ Global
 		{5AE84F21-3F2D-45A4-B62A-BE713A2FAE5F}.Release|x64.Build.0 = Release|x64
 		{5AE84F21-3F2D-45A4-B62A-BE713A2FAE5F}.Release|x86.ActiveCfg = Release|x86
 		{5AE84F21-3F2D-45A4-B62A-BE713A2FAE5F}.Release|x86.Build.0 = Release|x86
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Debug|x64.ActiveCfg = Debug|x64
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Debug|x64.Build.0 = Debug|x64
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Debug|x86.ActiveCfg = Debug|x86
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Debug|x86.Build.0 = Debug|x86
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Release|x64.ActiveCfg = Release|x64
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Release|x64.Build.0 = Release|x64
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Release|x86.ActiveCfg = Release|x86
-		{5D3337D0-3B6D-44CC-A06A-978AA38B3BC6}.Release|x86.Build.0 = Release|x86
 		{13FA30B0-D38D-4A64-8A81-9A6F5921F1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13FA30B0-D38D-4A64-8A81-9A6F5921F1C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13FA30B0-D38D-4A64-8A81-9A6F5921F1C5}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -102,6 +95,7 @@ Global
 		{F579B173-2985-43AF-B7B6-33839C82E760} = {626FD3D6-9403-4B95-9C72-ADB1B01EED57}
 		{5AE84F21-3F2D-45A4-B62A-BE713A2FAE5F} = {49D86229-A2C7-412E-94AC-18AE78E0122E}
 		{13FA30B0-D38D-4A64-8A81-9A6F5921F1C5} = {49D86229-A2C7-412E-94AC-18AE78E0122E}
+		{F7B7DA3D-2A11-490F-AAFC-9E95C95CEDF6} = {4ED4B492-628B-4B06-BD78-330A98AF2A2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A4EA94BE-37A3-406F-A10F-879FBEA456D2}
