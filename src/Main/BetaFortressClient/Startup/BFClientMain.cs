@@ -28,6 +28,7 @@ using System.Reflection;
 #if WINDOWS
 using System.Security.Principal;
 #endif
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 // BF Client-specific namespaces
@@ -94,8 +95,6 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             try
             {
                 Run();
-                Console.WriteLine("[ BFCLIENT ] Could not find Steam! Assuming Steam is not installed.");
-                return;
             }
             catch (Exception e)
             {
@@ -175,86 +174,153 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
 
         static void RunInteractive()
         {
-            Gui.Message("Welcome to Beta Fortress Client aka a knockoff of TF2CDownloader in .NET!", 0);
-            Gui.Message("You are in version " + Assembly.GetExecutingAssembly().GetName().Version, 0);
-            if(File.Exists(ModManager.GetModPath + "/gameinfo.txt"))
+            Console.Clear();
+
+            Gui.Message("Welcome to Beta Fortress Client aka a knockoff of TF2CDownloader in .NET!\n", 0);
+            Gui.Message("You are in version " + Assembly.GetExecutingAssembly().GetName().Version + "\n", 0);
+            if (File.Exists(ModManager.GetModPath + "/gameinfo.txt"))
             {
                 string gameInfoContent = File.ReadAllText(ModManager.GetModPath + "/gameinfo.txt");
-                Gui.Message(gameInfoContent, 1);
                 var gameInfo = ModManager.ExtractGameInfo(gameInfoContent);
 
-                if(gameInfo.steamAppId != 243750)
-                {
-                    Gui.Message("Log:", 0);
-                    Gui.Message("Warning: Beta Fortress's Steam App ID value in gameinfo.txt differ from 243750\nCurrent App ID is: " + gameInfo.steamAppId + "\n", 0);
-                    Console.WriteLine("============================================================================\n");
-                }
+                //if (gameInfo.steamAppId != 243750)
+                //{
+                //    Console.WriteLine("============================================================================\n");
+                //    Gui.Message("Log\n", 0);
+                //    Gui.Message("Warning: Beta Fortress's Steam App ID value in gameinfo.txt differ from 243750\nCurrent App ID is: " + gameInfo.steamAppId + "\n\n", 0);
+                //    Console.WriteLine("============================================================================\n");
+                //}
 
-                if(gameInfo.NoModels != 1)
-                {
-                    Gui.Message("Log:", 0);
-                    Gui.Message("Warning: Beta Fortress's Steam App ID value in gameinfo.txt differ from 243750\nCurrent App ID is: " + gameInfo.NoModels + "\n", 0);
-                    Console.WriteLine("============================================================================\n");
-                }
-
+                //if (gameInfo.NoModels != 1)
+                //{
+                //    Console.WriteLine("============================================================================\n");
+                //    Gui.Message("Log\n", 0);
+                //    Gui.Message("Warning: Beta Fortress's Steam App ID value in gameinfo.txt differ from 243750\nCurrent App ID is: " + gameInfo.NoModels + "\n\n", 0);
+                //    Console.WriteLine("============================================================================\n");
+                //}
             }
             Gui.Message("[ 1 ] Install / Update Beta Fortress\n" +
                         "[ 2 ] Configure for server hosting\n" +
                         "[ 3 ] Uninstall Beta Fortress\n" +
-                        "[ 4 ] Quit\n", 0);
-            string input = Gui.MessageInput("Choose your option: ");
-            if(input != null) 
+                        "[ 4 ] Run Beta Fortress\n" +
+                        "[ 5 ] Quit\n", 0);
+            string input = Gui.MessageInput("Choose your option:");
+            if (input != null)
             {
-                if(input == "1")
+                if (input == "1")
                 {
-                    if(ModManager.IsModInstalled)
+                    if (ModManager.IsModInstalled)
                     {
                         // update
-                        if(Gui.MessageYesNo("Do you want to go back to the menu?"))
+                        if (Gui.MessageYesNo("Do you want to go back to the menu?"))
                         {
-                            Console.Clear();
                             RunInteractive();
                         }
                         else
                         {
-                            Gui.MessageEnd("User selected to exit the utility", 0);
+                            Gui.MessageEnd("User selected to exit the utility\n", 0);
                         }
                     }
                     else
                     {
-                        Task.Run(async() => await ModManager.InstallMod(Steam.GetSourceModsPath + "/bf"));
+                        Task.Run(async () => await ModManager.InstallMod(Steam.GetSourceModsPath + "/bf"));
 
-                        if(Gui.MessageYesNo("Do you want to go back to the menu?"))
+                        if (Gui.MessageYesNo("Do you want to go back to the menu?"))
                         {
-                            Console.Clear();
                             RunInteractive();
                         }
                         else
                         {
-                            Gui.MessageEnd("User selected to exit the utility", 0);
+                            Gui.MessageEnd("User selected to exit the utility\n", 0);
                         }
                     }
                 }
-                else if(input == "2")
+                else if (input == "2")
                 {
-                    Gui.MessageInput("Coming soon!");
+                    //Gui.MessageInput("Coming soon!");
+                    //Console.Clear();
+                    //RunInteractive();
                     Console.Clear();
-                    RunInteractive();
+                    if (!File.Exists(ModManager.GetModPath + "/cfg/server.cfg"))
+                    {
+                        Gui.Message("Creating the server.cfg file...\n", 0);
+                        Task.Run(async () => await File.WriteAllTextAsync(ModManager.GetModPath + "/cfg/server.cfg", ""));
+                        if (Gui.MessageYesNo("Created the server configuration file, do you want to edit it now?"))
+                        {
+                            Process p = new Process();
+#if WINDOWS
+                            p.StartInfo.FileName = "C:\\windows\\notepad.exe";
+#elif POSIX
+                            p.StartInfo.FileName = "/bin/nano";
+#endif
+                            p.StartInfo.Arguments = ModManager.GetModPath + "/cfg/server.cfg";
+                            p.Start();
+                            Gui.Message("Waiting for the default program for CFG files to exit...\n", 0);
+                            p.WaitForExit();
+
+                            if (Gui.MessageYesNo("Do you want to go back to the menu?"))
+                            {
+                                RunInteractive();
+                            }
+                            else
+                            {
+                                Gui.MessageEnd("User selected to exit the utility\n", 0);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Gui.MessageYesNo("The server configuration file exists in your current installation, do you want to edit it now?"))
+                        {
+                            Process p = new Process();
+#if WINDOWS
+                            p.StartInfo.FileName = "C:\\windows\\notepad.exe";
+#elif POSIX
+                            p.StartInfo.FileName = "/bin/nano";
+#endif
+                            p.StartInfo.Arguments = ModManager.GetModPath + "/cfg/server.cfg";
+                            p.Start();
+                            Gui.Message("Waiting for the default program for CFG files to exit...\n", 0);
+                            p.WaitForExit();
+
+                            if (Gui.MessageYesNo("Do you want to go back to the menu?"))
+                            {
+                                RunInteractive();
+                            }
+                            else
+                            {
+                                Gui.MessageEnd("User selected to exit the utility\n", 0);
+                            }
+                        }
+                    }
                 }
-                else if(input == "3")
+                else if (input == "3")
                 {
                     if (Gui.MessageYesNo("This will remove your current configurations and current custom mods/addons for Beta Fortress. Are you sure?"))
                     {
                         Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
                     }
                 }
-                else if(input == "4")
+                else if (input == "4")
+                {
+                    if (Gui.MessageYesNo("Do you want to add extra launch options?"))
+                    {
+                        string bfArgs = Gui.MessageInput("Launch options:");
+                        Steam.RunApp(243750, "-game " + ModManager.GetModPath + " " + bfArgs);
+                    }
+                    else
+                    {
+                        Steam.RunApp(243750, "-game " + ModManager.GetModPath);
+                    }
+                    RunInteractive();
+                }
+                else if (input == "5")
                 {
                     Environment.Exit(0);
                 }
                 else
                 {
-                    Gui.MessageEnd("Please enter 1, 2, 3 or 4.", 1);
+                    Gui.MessageEnd("Please enter 1, 2, 3, 4 or 5.\n", 1);
                 }
             }
         }

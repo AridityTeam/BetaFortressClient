@@ -15,9 +15,9 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Win32;
 
 namespace BetaFortressTeam.BetaFortressClient.Util
 {
@@ -44,7 +44,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                     }
                     else
                     {
-                            return null;
+                        return null;
                     }
                 }
                 return null;
@@ -199,7 +199,11 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         public static void RunApp(int appId)
         {
             Process p = new Process();
+#if WINDOWS
+            p.StartInfo.FileName = Steam.GetSteamPath + "/steam.exe";
+#elif POSIX
             p.StartInfo.FileName = "/usr/bin/steam";
+#endif
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.Arguments = "-applaunch " + appId;
             p.Start();
@@ -213,7 +217,11 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         public static void RunApp(int appId, string args)
         {
             Process p = new Process();
+#if WINDOWS
+            p.StartInfo.FileName = Steam.GetSteamPath + "/steam.exe";
+#elif POSIX
             p.StartInfo.FileName = "/usr/bin/steam";
+#endif
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.Arguments = "-applaunch " + appId + " " + args;
             p.Start();

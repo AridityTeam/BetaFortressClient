@@ -28,14 +28,14 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         public static void Message(string message, int delay)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(message);
+            Console.Write(message);
             Console.ForegroundColor = ConsoleColor.Gray;
             Thread.Sleep(delay);
         }
 
         public static bool MessageYesNo(string message)
         {
-            Console.WriteLine(message);
+            Console.Write(message + " ");
             string answer = Console.ReadLine();
             if (answer != null)
             {
@@ -57,7 +57,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
         public static bool MessageYesNo(string message, bool defaultAnswer)
         {
-            Console.WriteLine(message);
+            Console.Write(message);
             string answer = Console.ReadLine();
             if (answer != null)
             {
@@ -79,13 +79,13 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
         public static string MessageInput(string message)
         {
-            Console.WriteLine(message);
+            Console.Write(message + " ");
             return Console.ReadLine();
         }
 
         public static string MessageDir(string msg)
         {
-            Console.WriteLine(msg);
+            Console.Write(msg + " ");
             string dir = Console.ReadLine();
             if (dir.Contains("~"))
             {
@@ -111,8 +111,8 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
         public static void MessageEnd(string msg, int exitCode)
         {
-            Console.WriteLine(msg);
-            Console.WriteLine("Press any key to exit.");
+            Console.Write(msg);
+            Console.Write("Press any key to exit.");
             Console.ReadKey();
 
             Environment.Exit(exitCode);

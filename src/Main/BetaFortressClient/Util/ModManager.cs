@@ -32,7 +32,11 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         {
             get
             {
-                return ModPath;
+                if(Directory.Exists(ModPath))
+                { 
+                    return ModPath;
+                }
+                return null;
             }
         }
 
@@ -105,6 +109,30 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
         }
 
+        public static async Task UpdateMod(string currentModPath)
+        {
+            using (var repo = new Repository(GetModPath))
+            {
+                if (SetupManager.HasMissingModFiles())
+                {
+                    if (Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
+                        "Do you want to reinstall?"))
+                    {
+                        Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
+                    }
+                }
+                else
+                {
+
+                    var trackedBranch = repo.Head.TrackedBranch;
+                    Commit originHeadCommit = repo.ObjectDatabase.FindMergeBase(repo.Branches[trackedBranch.FriendlyName].Tip, repo.Head.Tip);
+                    CheckoutOptions checkoutOptions = new CheckoutOptions();
+                    await Task.Run(() => repo.Reset(ResetMode.Hard, originHeadCommit, checkoutOptions));
+                }
+            }
+        }
+
+
         public static bool TransferProgress(TransferProgress progress)
         {
             Console.WriteLine($"Objects: {progress.ReceivedObjects} of {progress.TotalObjects}, Bytes: {progress.ReceivedBytes}");
@@ -112,6 +140,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
         }
 
         // thanks YourLocalMoon!
+        // even though it doesnt work you fucking swine
         public static (string Name, string Type, int NoModels, int NoHiModel, int NoCrosshair, string Developer, string DeveloperUrl, string Manual, int steamAppId) ExtractGameInfo(string gameInfoContent)
         {
             string name = null;
@@ -173,7 +202,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
 
             var appIdMatch = Regex.Match(gameInfoContent, @"\bSteamAppId\s+(\d+)", RegexOptions.IgnoreCase);
-            if(appIdMatch.Success && manualMatch.Groups.Count > 1)
+            if (appIdMatch.Success && manualMatch.Groups.Count > 1)
             {
                 steamAppId = int.Parse(manualMatch.Groups[1].Value.Trim());
             }
