@@ -164,6 +164,9 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
         {
             try
             {
+                Gui.Message("WARNING: You may encounter issues on this version.\n", 0);
+                Gui.MessageInput("Press the ENTER key to continue");
+
                 RunInteractive();
             }
             finally
@@ -211,7 +214,10 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 {
                     if (ModManager.IsModInstalled)
                     {
+                        Console.Clear();
                         // update
+                        Task.Run(async() => await ModManager.UpdateMod(Steam.GetSourceModsPath + "/bf"));
+
                         if (Gui.MessageYesNo("Do you want to go back to the menu?"))
                         {
                             RunInteractive();
@@ -223,6 +229,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     }
                     else
                     {
+                        Console.Clear();
                         Task.Run(async () => await ModManager.InstallMod(Steam.GetSourceModsPath + "/bf"));
 
                         if (Gui.MessageYesNo("Do you want to go back to the menu?"))

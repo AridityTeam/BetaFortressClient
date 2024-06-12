@@ -82,6 +82,12 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             Console.Write(message + " ");
             return Console.ReadLine();
         }
+        
+        public static void MessageWaitForKey(string message)
+        {
+            Console.Write(message + " ");
+            Console.ReadKey();
+        }
 
         public static string MessageDir(string msg)
         {

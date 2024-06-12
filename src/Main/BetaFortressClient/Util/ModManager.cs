@@ -18,7 +18,9 @@
 using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using System;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -81,7 +83,8 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
         public static async Task InstallMod(string modPath)
         {
-            Console.Clear();
+            await Task.Run(() => Console.Clear());
+
             var gitProgress = new ProgressHandler((serverProgressOutput) =>
             {
                 // Print output to console
@@ -109,25 +112,79 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
         }
 
+        public static bool CheckForUpdates(string currentModPath)
+        {
+            using (var repo = new Repository(currentModPath))
+            {
+                var options = new FetchOptions();
+                    options.Prune = true;
+                    options.TagFetchMode = TagFetchMode.Auto;
+                    options.Depth = 1;
+
+                var remote = repo.Network.Remotes["origin"];
+                var refSpecs = remote.FetchRefSpecs.Select(x => x.Specification);
+                repo.Network.Fetch(remote.Name, refSpecs, options, "Checking for updates...");
+            }
+            return false;
+        }
+
         public static async Task UpdateMod(string currentModPath)
         {
-            using (var repo = new Repository(GetModPath))
+            var gitProgress = new ProgressHandler((serverProgressOutput) =>
+            {
+                // Print output to console
+                Console.Write(serverProgressOutput);
+                return true;
+            });
+
+            using (var repo = new Repository(currentModPath))
             {
                 if (SetupManager.HasMissingModFiles())
                 {
                     if (Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
                         "Do you want to reinstall?"))
                     {
-                        Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
+                        await Task.Run(() => Directory.Delete(Steam.GetSourceModsPath + "/bf", true));
+                        await Task.Run(() => InstallMod(Steam.GetSourceModsPath + "/bf"));
                     }
                 }
                 else
                 {
-
                     var trackedBranch = repo.Head.TrackedBranch;
+
+                    var options = new FetchOptions();
+                    options.Prune = true;
+                    options.TagFetchMode = TagFetchMode.Auto;
+                    options.Depth = 1;
+
+                    var remote = repo.Network.Remotes["origin"];
+                    var refSpecs = remote.FetchRefSpecs.Select(x => x.Specification);
+                    await Task.Run(() => repo.Network.Fetch(remote.Name, refSpecs, options, "Fetching remote..."));
+
                     Commit originHeadCommit = repo.ObjectDatabase.FindMergeBase(repo.Branches[trackedBranch.FriendlyName].Tip, repo.Head.Tip);
-                    CheckoutOptions checkoutOptions = new CheckoutOptions();
-                    await Task.Run(() => repo.Reset(ResetMode.Hard, originHeadCommit, checkoutOptions));
+                    //CheckoutOptions checkoutOptions = new CheckoutOptions();
+                    var pullOptions = new PullOptions();
+                    pullOptions.FetchOptions = new FetchOptions();
+                    pullOptions.FetchOptions.Prune = true;
+                    pullOptions.FetchOptions.Depth = 1;
+                    pullOptions.FetchOptions.OnProgress = gitProgress;
+                    pullOptions.FetchOptions.OnTransferProgress = TransferProgress;
+                    //await Task.Run(() => repo.Reset(ResetMode.Hard, originHeadCommit, checkoutOptions));
+                    var id = new Identity("Beta Fortress Client user", "aridityteam@gmail.com");
+                    var sig = new Signature(id, new DateTimeOffset(DateTime.Today));
+                    var result = await Task.Run(() => Commands.Pull(repo, sig, pullOptions));
+                    if (result.Status == MergeStatus.Conflicts)
+                    {
+                        Gui.Message("Conflict detected!!!", 0);
+                        await Task.Delay(500);
+                        return;
+                    }
+                    if (result.Status == MergeStatus.UpToDate)
+                    {
+                        Gui.Message("Mod is up-to-date.", 0);
+                        await Task.Delay(500);
+                        return;
+                    }
                 }
             }
         }
@@ -135,13 +192,13 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
         public static bool TransferProgress(TransferProgress progress)
         {
-            Console.WriteLine($"Objects: {progress.ReceivedObjects} of {progress.TotalObjects}, Bytes: {progress.ReceivedBytes}");
+            Console.Write($"Objects: {progress.ReceivedObjects} of {progress.TotalObjects}, Bytes: {progress.ReceivedBytes}\n");
             return true;
         }
 
         // thanks YourLocalMoon!
         // even though it doesnt work you fucking swine
-        public static (string Name, string Type, int NoModels, int NoHiModel, int NoCrosshair, string Developer, string DeveloperUrl, string Manual, int steamAppId) ExtractGameInfo(string gameInfoContent)
+        public static (string Name, string Type, int NoModels, int NoHiModel, int NoCrosshair, string Developer, string DeveloperUrl, string Manual, int SteamAppId) ExtractGameInfo(string gameInfoContent)
         {
             string name = null;
             string type = null;
