@@ -1,5 +1,8 @@
 # BetaFortressClient
-[![ruh](https://github.com/AridityTeam/BetaFortressClient/actions/workflows/bfclient-win.yml/badge.svg)](https://github.com/AridityTeam/BetaFortressClient/actions/workflows/bfclient-win.yml)
+[![Beta Fortress Client - .NET 8.0 (Windows)](https://github.com/AridityTeam/BetaFortressClient/actions/workflows/bfclient-win.yml/badge.svg)](https://github.com/AridityTeam/BetaFortressClient/actions/workflows/bfclient-win.yml)
+
+**Beta Fortress Client is licensed under the** ![Licensed under GPL v3](Assets/gplv3-with-text.png) **license**\
+**LibGit2Sharp is licensed under the MIT License** 
 
 ## About Beta Fortress Client
 Beta Fortress Client is a .NET 8 program (originally based on .NET Framework) for installing, updating, resetting and even uninstalling Beta Fortress.
@@ -18,7 +21,7 @@ Beta Fortress Client is a .NET 8 program (originally based on .NET Framework) fo
 
 **STEP #1** \
 Clone the repository with Visual Studio or GitHub Desktop \
-(You can directly open the repository with Visual Studio and GitHub Desktop by pressing the ![Code button](code-button.png) button and then ![Open with GitHub Desktop button](open-with-github-desktop.png) or ![Open with Visual Studio button](open-with-visual-studio.png))
+(You can directly open the repository with Visual Studio and GitHub Desktop by pressing the ![Code button](Assets/code-button.png) button and then ![Open with GitHub Desktop button](Assets/open-with-github-desktop.png) or ![Open with Visual Studio button](Assets/open-with-visual-studio.png))
 
 **STEP #2** \
 Once the cloning process is done, open the directory of where you've cloned the source code and open the BetaFortressClient(.sln) solution
