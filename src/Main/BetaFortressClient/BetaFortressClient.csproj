@@ -37,9 +37,6 @@
     <ProjectReference Include="..\BetaFortressTeam.BetaFortressClient\BetaFortressTeam.BetaFortressClient.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\gplv3-with-text.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="bfclient.ico" />
     <Content Include="license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
