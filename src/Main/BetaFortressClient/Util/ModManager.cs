@@ -18,7 +18,6 @@
 using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using System;
-using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;

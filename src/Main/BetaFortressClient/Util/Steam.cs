@@ -27,6 +27,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
     /// </summary>
     public static class Steam
     {
+        #if WINDOWS
         /// <summary>
         /// Returns a value where the Steam client was installed
         /// </summary>
@@ -226,5 +227,6 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             p.StartInfo.Arguments = "-applaunch " + appId + " " + args;
             p.Start();
         }
+        #endif
     }
 }
