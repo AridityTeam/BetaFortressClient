@@ -206,7 +206,8 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                         "[ 2 ] Configure for server hosting\n" +
                         "[ 3 ] Uninstall Beta Fortress\n" +
                         "[ 4 ] Run Beta Fortress\n" +
-                        "[ 5 ] Quit\n", 0);
+                        "[ 5 ] Run Beta Fortress as a dedicated server\n" +
+                        "[ 6 ] Quit\n", 0);
             string input = Gui.MessageInput("Choose your option:");
             if (input != null)
             {
@@ -323,11 +324,28 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 }
                 else if (input == "5")
                 {
+                    if (!File.Exists(ModManager.GetModPath + "/cfg/server.cfg"))
+                    {
+                        Gui.Message("The server configuration file doesn't exist! Using the recommended configuration by The Aridity Team", 0);
+                        Steam.RunApp(244310, "-game " + ModManager.GetModPath + " " + "-console " + "+hostname My Beta Fortress Server " + "+tv_enable 1 " + "+map ctf_2base");
+                    }
+                    else
+                    {
+                        Steam.RunApp(244310, "-game " + ModManager.GetModPath + " " + "-console " + "+servercfgfile server.cfg");
+                    }
+                    RunInteractive();
+                }
+                else if (input == "6")
+                {
                     Environment.Exit(0);
                 }
                 else
                 {
-                    Gui.MessageEnd("Please enter 1, 2, 3, 4 or 5.\n", 1);
+                    Gui.Message("Please enter 1, 2, 3, 4 or 5.\n", 1);
+                    if(Gui.MessageYesNo("Do you want to go back to the menu?"))
+                    {
+                        RunInteractive();
+                    }
                 }
             }
         }
