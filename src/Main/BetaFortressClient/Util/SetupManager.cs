@@ -27,7 +27,11 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
         public static bool HasMissingModFiles()
         {
+            #if WINDOWS
             string modPath = Steam.GetSourceModsPath + "/bf";
+            #else
+            string modPath = ModManager.GetModPath;
+            #endif
             if (!Directory.Exists(modPath + "/bin"))
             {
                 return true;

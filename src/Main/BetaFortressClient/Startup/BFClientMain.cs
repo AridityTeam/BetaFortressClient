@@ -81,6 +81,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             }
 #endif
 
+            #if WINDOWS
             if (/* better workaround */ Steam.IsSteamInstalled /*Directory.Exists(Steam.GetSteamPath)*/)
             {
                 Console.WriteLine("[ BFCLIENT ] Steam is already installed");
@@ -91,6 +92,7 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 Console.WriteLine("[ BFCLIENT ] Quitting.");
                 return;
             }
+            #endif
 
             try
             {
@@ -205,14 +207,15 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
             Gui.Message("[ 1 ] Install / Update Beta Fortress\n" +
                         "[ 2 ] Configure for server hosting\n" +
                         "[ 3 ] Uninstall Beta Fortress\n" +
-                        "[ 4 ] Run Beta Fortress\n" +
-                        "[ 5 ] Run Beta Fortress as a dedicated server\n" +
+                        "[ 4 ] Run Beta Fortress (windows only)\n" +
+                        "[ 5 ] Run Beta Fortress as a dedicated server (windows only)\n" +
                         "[ 6 ] Quit\n", 0);
             string input = Gui.MessageInput("Choose your option:");
             if (input != null)
             {
                 if (input == "1")
                 {
+                    #if WINDOWS
                     if (ModManager.IsModInstalled)
                     {
                         Console.Clear();
@@ -242,6 +245,10 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                             Gui.MessageEnd("User selected to exit the utility\n", 0);
                         }
                     }
+                    #else
+                    ModManager.ModPath = Gui.MessageDir("Please enter the directory where Steam is installed:");
+                    Gui.Message("Steam is installed at: " + ModManager.ModPath + ". Is this correct?\n", 0);
+                    #endif
                 }
                 else if (input == "2")
                 {
@@ -304,11 +311,15 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                 }
                 else if (input == "3")
                 {
+                    ModManager.ModPath = Gui.MessageDir("Please enter the directory where Steam is installed:");
+                    Gui.Message("Steam is installed at: " + ModManager.ModPath + ". Is this correct?\n", 0);
+
                     if (Gui.MessageYesNo("This will remove your current configurations and current custom mods/addons for Beta Fortress. Are you sure?"))
                     {
-                        Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
+                        Directory.Delete(ModManager.ModPath, true);
                     }
                 }
+                #if WINDOWS
                 else if (input == "4")
                 {
                     if (Gui.MessageYesNo("Do you want to add extra launch options?"))
@@ -335,6 +346,18 @@ namespace BetaFortressTeam.BetaFortressClient.Startup
                     }
                     RunInteractive();
                 }
+                #else
+                else if (input == "4")
+                {
+                    Gui.MessageWaitForKey("This feature is available on Windows only!\nPress any key to go back to the menu\n");
+                    RunInteractive();
+                }
+                else if (input == "5")
+                {
+                    Gui.MessageWaitForKey("This feature is available on Windows only!\nPress any key to go back to the menu\n");
+                    RunInteractive();
+                }
+                #endif
                 else if (input == "6")
                 {
                     Environment.Exit(0);

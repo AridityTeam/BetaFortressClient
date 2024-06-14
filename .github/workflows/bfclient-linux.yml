@@ -34,10 +34,10 @@ jobs:
     # run: dotnet test --no-build --verbosity normal
     - name: Pack
       shell: bash
-      run: tar cJfv build-rel-BFClient-net8.0-Windows.tar.xz bin/net8.0-windows10.0.17763.0
+      run: tar cJfv build-rel-BFClient-net8.0-Linux.tar.xz bin/net8.0
 
     - name: Upload product
       uses: actions/upload-artifact@v4
       with:
-          name: Beta Fortress Client - .NET 8.0 (Windows)
-          path: build-rel-BFClient-net8.0-Windows.tar.xz
+          name: Beta Fortress Client - .NET 8.0 (Linux)
+          path: build-rel-BFClient-net8.0-Linux.tar.xz

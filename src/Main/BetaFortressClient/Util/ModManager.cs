@@ -27,7 +27,9 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 {
     public static class ModManager
     {
-        static string ModPath = Steam.GetSourceModsPath + "/bf";
+        //static string ModPath = Steam.GetSourceModsPath + "/bf";
+
+        public static string ModPath;
 
         public static string GetModPath
         {
@@ -91,21 +93,21 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                 return true;
             });
 
-            if (!Directory.Exists(Steam.GetSourceModsPath + "/bf"))
+            if (!Directory.Exists(ModPath))
             {
                 CloneOptions cloneOptions = new CloneOptions();
                 cloneOptions.FetchOptions.OnTransferProgress = TransferProgress;
                 cloneOptions.FetchOptions.Depth = 1;
                 cloneOptions.FetchOptions.OnProgress = gitProgress;
 
-                var x = await Task.Run(() => Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", Steam.GetSourceModsPath + "/bf", cloneOptions));
+                var x = await Task.Run(() => Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", ModPath + "/bf", cloneOptions));
 
                 if (SetupManager.HasMissingModFiles())
                 {
                     if (Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
                         "Do you want to reinstall?"))
                     {
-                        Directory.Delete(Steam.GetSourceModsPath + "/bf", true);
+                        Directory.Delete(ModPath, true);
                     }
                 }
             }
@@ -143,8 +145,8 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                     if (Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
                         "Do you want to reinstall?"))
                     {
-                        await Task.Run(() => Directory.Delete(Steam.GetSourceModsPath + "/bf", true));
-                        await Task.Run(() => InstallMod(Steam.GetSourceModsPath + "/bf"));
+                        await Task.Run(() => Directory.Delete(ModPath, true));
+                        await Task.Run(() => InstallMod(ModPath));
                     }
                 }
                 else
