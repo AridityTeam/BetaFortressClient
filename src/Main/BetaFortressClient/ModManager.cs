@@ -27,9 +27,8 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 {
     public static class ModManager
     {
-        //static string ModPath = Steam.GetSourceModsPath + "/bf";
-
-        public static string ModPath;
+        #if _WINDOWS
+        static string ModPath = Steam.GetSourceModsPath + "/bf";
 
         public static string GetModPath
         {
@@ -65,6 +64,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                 }
             }
         }
+        #endif
 
         public static string GetModName
         {
@@ -93,15 +93,16 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                 return true;
             });
 
-            if (!Directory.Exists(ModPath))
+            if (!Directory.Exists(modPath))
             {
                 CloneOptions cloneOptions = new CloneOptions();
                 cloneOptions.FetchOptions.OnTransferProgress = TransferProgress;
                 cloneOptions.FetchOptions.Depth = 1;
                 cloneOptions.FetchOptions.OnProgress = gitProgress;
 
-                var x = await Task.Run(() => Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", ModPath + "/bf", cloneOptions));
+                var x = await Task.Run(() => Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", modPath + "/bf", cloneOptions));
 
+                #if _WINDOWS
                 if (SetupManager.HasMissingModFiles())
                 {
                     if (Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
@@ -110,6 +111,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                         Directory.Delete(ModPath, true);
                     }
                 }
+                #endif
             }
         }
 
@@ -140,6 +142,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
 
             using (var repo = new Repository(currentModPath))
             {
+                #if _WINDOWS
                 if (SetupManager.HasMissingModFiles())
                 {
                     if (Gui.MessageYesNo("Beta Fortress Client has detected that your current installation has missing files.\n" +
@@ -187,6 +190,43 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                         return;
                     }
                 }
+                #else
+                var trackedBranch = repo.Head.TrackedBranch;
+
+                var options = new FetchOptions();
+                options.Prune = true;
+                options.TagFetchMode = TagFetchMode.Auto;
+                options.Depth = 1;
+
+                var remote = repo.Network.Remotes["origin"];
+                var refSpecs = remote.FetchRefSpecs.Select(x => x.Specification);
+                await Task.Run(() => repo.Network.Fetch(remote.Name, refSpecs, options, "Fetching remote..."));
+
+                Commit originHeadCommit = repo.ObjectDatabase.FindMergeBase(repo.Branches[trackedBranch.FriendlyName].Tip, repo.Head.Tip);
+                //CheckoutOptions checkoutOptions = new CheckoutOptions();
+                var pullOptions = new PullOptions();
+                pullOptions.FetchOptions = new FetchOptions();
+                pullOptions.FetchOptions.Prune = true;
+                pullOptions.FetchOptions.Depth = 1;
+                pullOptions.FetchOptions.OnProgress = gitProgress;
+                pullOptions.FetchOptions.OnTransferProgress = TransferProgress;
+                //await Task.Run(() => repo.Reset(ResetMode.Hard, originHeadCommit, checkoutOptions));
+                var id = new Identity("Beta Fortress Client user", "aridityteam@gmail.com");
+                var sig = new Signature(id, new DateTimeOffset(DateTime.Today));
+                var result = await Task.Run(() => Commands.Pull(repo, sig, pullOptions));
+                if (result.Status == MergeStatus.Conflicts)
+                {
+                    Gui.Message("Conflict detected!!!", 0);
+                    await Task.Delay(500);
+                    return;
+                }
+                if (result.Status == MergeStatus.UpToDate)
+                {
+                    Gui.Message("Mod is up-to-date.", 0);
+                    await Task.Delay(500);
+                    return;
+                }
+                #endif
             }
         }
 

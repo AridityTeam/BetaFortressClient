@@ -27,7 +27,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
     /// </summary>
     public static class Steam
     {
-        #if WINDOWS
+        #if _WINDOWS
         /// <summary>
         /// Returns a value where the Steam client was installed
         /// </summary>

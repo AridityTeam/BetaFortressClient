@@ -30,7 +30,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             #if WINDOWS
             string modPath = Steam.GetSourceModsPath + "/bf";
             #else
-            string modPath = ModManager.GetModPath;
+            string modPath = null;
             #endif
             if (!Directory.Exists(modPath + "/bin"))
             {
