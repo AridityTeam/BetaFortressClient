@@ -74,6 +74,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
             }
         }
 
+        #if _WINDOWS
         public static void SetConfigs(Configuration.ConVars config)
         {
             using (StreamWriter writer = new StreamWriter(GetModPath + "/cfg/config.cfg"))
@@ -81,6 +82,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                 writer.Write(config);
             }
         }
+        #endif
 
         public static async Task InstallMod(string modPath)
         {
