@@ -28,7 +28,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
     public static class ModManager
     {
         #if _WINDOWS
-        static string ModPath = Steam.GetSourceModsPath + "/bf";
+        static string ModPath = Steam.GetSourceModsPath + DEFS.MOD_NAME;
 
         public static string GetModPath
         {
@@ -102,7 +102,7 @@ namespace BetaFortressTeam.BetaFortressClient.Util
                 cloneOptions.FetchOptions.Depth = 1;
                 cloneOptions.FetchOptions.OnProgress = gitProgress;
 
-                var x = await Task.Run(() => Repository.Clone("https://github.com/Beta-Fortress-2-Team/bf.git", modPath + "/bf", cloneOptions));
+                var x = await Task.Run(() => Repository.Clone(DEFS.MOD_DOWNLOAD_LINK, modPath + "/bf", cloneOptions));
 
                 #if _WINDOWS
                 if (SetupManager.HasMissingModFiles())
