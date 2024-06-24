@@ -1,4 +1,4 @@
-# BFClientMain static class
+# Program static class
 ```cs
-static class BFClientMain
+static class Program
 ```
